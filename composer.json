@@ -8,9 +8,9 @@
 	"description" : "LuandaPHP Framework",
 	"license" : "CC-BY-ND-4.0",
 	"require" : {
-		"php" : ">=7.0"
+		"php" : ">=7.2"
 	},
-	"type" : "library",
+	"type" : "project",
 	"support" : {
 		"email" : "vargatam@yahoo.com"
 	},
@@ -25,5 +25,13 @@
 			"role" : "Developer"
 		}
 	],
-	"minimum-stability" : "dev"
+	"minimum-stability" : "dev",
+	"autoload-dev" : {
+		"psr-4" : {
+			"TamasVarga\\LuandaPHP" : "",
+			"" : "",
+			"\\TamasVarga\\LuandaPHP" : "src",
+			"TamasVarga\\LuandaPHP\\" : "src"
+		}
+	}
 }
