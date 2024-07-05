@@ -1,0 +1,28 @@
+{
+	"autoload" : {
+		"psr-4" : {
+			"TamasVarga\\LuandaPHP\\" : "src"
+		}
+	},
+	"name" : "tamasvarga/luandaphp",
+	"description" : "LuandaPHP Framework",
+	"license" : "CC-BY-ND-4.0",
+	"require" : {
+		"php" : ">=8.2"
+	},
+	"type" : "library",
+	"support" : {
+		"email" : "vargatam@yahoo.com"
+	},
+	"repositories" : [{
+			"type" : "vcs",
+			"url" : "https://github.com/vargatam77/LuandaPHP"
+		}
+	],
+	"authors" : [{
+			"name" : "Tamas Varga",
+			"email" : "vargatam@yahoo.com",
+			"role" : "Developer"
+		}
+	]
+}

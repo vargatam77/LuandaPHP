@@ -1,0 +1,17 @@
+# Eclipse project files
+/.buildpath
+/.classpath
+/.project
+/.settings/
+
+# Metadata folder
+/.metadata/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Log files
+*.log
+
+/vendor/
