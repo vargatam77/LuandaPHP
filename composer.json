@@ -8,7 +8,7 @@
 	"description" : "LuandaPHP Framework",
 	"license" : "CC-BY-ND-4.0",
 	"require" : {
-		"php" : ">=8.2"
+		"php" : ">=7.0"
 	},
 	"type" : "library",
 	"support" : {
@@ -24,5 +24,6 @@
 			"email" : "vargatam@yahoo.com",
 			"role" : "Developer"
 		}
-	]
+	],
+	"minimum-stability" : "dev"
 }
