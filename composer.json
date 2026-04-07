@@ -1,34 +1,26 @@
 {
-	"autoload" : {
-		"psr-4" : {
-			"TamasVarga\\LuandaPHP\\" : "src"
+	"name": "tamasvarga/luandaphp",
+	"description": "LuandaPHP Framework",
+	"type": "library",
+	"license": "CC-BY-ND-4.0",
+	"require": {
+		"php": ">=7.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"TamasVarga\\LuandaPHP\\": "src/"
 		}
 	},
-	"name" : "tamasvarga/luandaphp",
-	"description" : "LuandaPHP Framework",
-	"license" : "CC-BY-ND-4.0",
-	"require" : {
-		"php" : ">=7.2"
-	},
-	"type" : "project",
-	"support" : {
-		"email" : "vargatam@yahoo.com"
-	},
-	"repositories" : [{
-			"type" : "vcs",
-			"url" : "https://github.com/vargatam77/LuandaPHP"
+	"authors": [
+		{
+			"name": "Tamas Varga",
+			"email": "vargatam@yahoo.com",
+			"role": "Developer"
 		}
 	],
-	"authors" : [{
-			"name" : "Tamas Varga",
-			"email" : "vargatam@yahoo.com",
-			"role" : "Developer"
-		}
-	],
-	"minimum-stability" : "dev",
-	"autoload-dev" : {
-		"psr-4" : {
-			"TamasVarga\\LuandaPHP\\" : "src"
-		}
-	}
+	"support": {
+		"email": "vargatam@yahoo.com"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
 }
