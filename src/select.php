@@ -1,54 +1,30 @@
 <?php
+declare(strict_types=1);
+
 namespace TamasVarga\LuandaPHP;
 
 /**
- * Class select
  * Represents a <select> HTML element with options.
  */
-class select extends global_attr {
-    protected int $level = 0;             // Indentation level
-    protected ?string $parent = null;     // Form ID
-    protected ?int $size = null;          // Size attribute
-    protected bool $required = false;     // Required attribute
-    protected bool $multiple = false;     // Multiple attribute
-    protected bool $disabled = false;     // Disabled attribute
-    protected bool $focused = false;      // Autofocus attribute
-    protected array $options = [];        // Array of options
+class Select extends Node {
+    protected ?string $parent = null; // Form ID
+    protected ?int $size = null; // Size attribute
+    protected bool $required = false; // Required attribute
+    protected bool $multiple = false; // Multiple attribute
+    protected array $options = []; // Array of options
     
     /**
-     * Sets the indentation level for formatting.
-     *
-     * @param int $level The level of indentation
-     */
-    public function setLevel(int $level): void {
-        $this->level = $level;
-    }
-    
-    /**
-     * Constructor.
+     * Constructor for the Select element.
      */
     public function __construct() {
         
     }
     
     /**
-     * Disables the select element.
-     */
-    public function disable(): void {
-        $this->disabled = true;
-    }
-    
-    /**
-     * Focuses the select element.
-     */
-    public function focus(): void {
-        $this->focused = true;
-    }
-    
-    /**
      * Sets the parent form ID.
      *
      * @param string $form_id The ID of the parent form
+     * @return void
      */
     public function setParent(string $form_id): void {
         $this->parent = $form_id;
@@ -58,13 +34,16 @@ class select extends global_attr {
      * Sets the size attribute of the select element.
      *
      * @param int $size The size attribute value
+     * @return void
      */
     public function setSize(int $size): void {
         $this->size = $size;
     }
     
     /**
-     * Enables the multiple attribute for selecting multiple options.
+     * Enables the multiple attribute.
+     *
+     * @return void
      */
     public function enableMultiple(): void {
         $this->multiple = true;
@@ -73,127 +52,88 @@ class select extends global_attr {
     /**
      * Adds an option to the select element.
      *
-     * @param option $element The option element to add
+     * @param Option $element The option element to add
+     * @return void
      */
-    public function addOption(option $element): void {
+    public function addOption(Option $element): void {
         $this->options[] = $element;
     }
     
     /**
-     * Sets the required attribute for the select element.
+     * Sets the required attribute.
      *
-     * @param bool $isRequired Whether the select is required or not
+     * @param bool $is_required Whether the select is required
+     * @return void
      */
-    public function setRequired(bool $isRequired = true): void {
-        $this->required = $isRequired;
+    public function setRequired(bool $is_required = true): void {
+        $this->required = $is_required;
     }
     
     /**
      * Retrieves the index of the selected option.
      *
-     * @return int|null The index of the selected option, or null if none is selected
+     * @return int|null The index of the selected option
      */
     public function getSelected(): ?int {
+        $result = null;
         foreach ($this->options as $index => $option) {
-            if ($option->isSelected()) {
-                return $index;
-            }
+            if ($option->isSelected()) $result = $index;
         }
-        return null;
+        return $result;
     }
     
     /**
-     * Retrieves the HTML representation of all options.
+     * Generate HTML representation of the select element.
      *
-     * @return string The HTML representation of the options
-     */
-    public function getOptions(): string {
-        $optionsHtml = '';
-        foreach ($this->options as $option) {
-            $option->setLevel($this->level + 1);
-            $optionsHtml .= $option->getHtml();
-        }
-        return $optionsHtml;
-    }
-    
-    /**
-     * Generates and retrieves the HTML representation of the select element.
-     *
-     * @return string The HTML representation of the select element
+     * @return string The HTML representation
      */
     public function getHtml(): string {
-        $space = str_repeat("\t", $this->level);   // Indentation
+        $space = str_repeat("\t", $this->level);
         
-        // Start select tag
-        $select = "\n" . $space . "<select"
-            . (($this->parent) ? " form='" . $this->parent . "'" : "")
-            . (($this->disabled) ? " disabled='disabled'" : "")
-            . (($this->required) ? " required='required'" : "")
-            . (($this->focused) ? " autofocus='autofocus'" : "")
-            . (($this->multiple) ? " multiple='multiple'" : "")
-            . (($this->size) ? " size='" . $this->size . "'" : "")
+        $html = "\n" . $space . '<select'
+            . ($this->parent ? ' form="' . $this->parent . '"' : '')
+            . ($this->inert ? ' disabled="disabled"' : '')
+            . ($this->required ? ' required="required"' : '')
+            . ($this->autofocus ? ' autofocus="autofocus"' : '')
+            . ($this->multiple ? ' multiple="multiple"' : '')
+            . ($this->size ? ' size="' . (string)$this->size . '"' : '')
             . $this->getAttributes()
-            . ">";
+            . '>';
             
-            // Add options
-            $select .= $this->getOptions();
-            
-            // Close select tag
-            $select .= "\n" . $space . "</select>";
-            
-        return $select;
+        foreach ($this->options as $option) {
+            $option->setLevel($this->level + 1);
+            $html .= $option->getHtml();
+        }
+        
+        $html .= "\n" . $space . '</select>';
+        
+        return $html;
     }
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 /**
- * Class option
  * Represents an <option> HTML element.
  */
-class option extends global_attr {
-    protected int $level = 0;         // Indentation level
-    public string $value;           // Value attribute
-    public string $text;            // Text content
-    protected bool $disabled = false; // Disabled attribute
+class Option extends Node {
+    public string $value; // Value attribute
+    public string $text; // Text content
     protected bool $selected = false; // Selected attribute
     
     /**
-     * Sets the indentation level for formatting.
+     * Constructor for the Option element.
      *
-     * @param int $level The level of indentation
-     */
-    public function setLevel(int $level): void {
-        $this->level = $level;
-    }
-    
-    /**
-     * Constructor.
-     *
-     * @param string $value The value attribute of the option
-     * @param string $text The text content of the option
+     * @param string $value The value attribute
+     * @param string $text The text content
      */
     public function __construct(string $value, string $text) {
-        $this->value = $value;
-        $this->text = $text;
-    }
-    
-    /**
-     * Enables the option.
-     */
-    public function enable(): void {
-        $this->disabled = false;
-    }
-    
-    /**
-     * Disables the option.
-     */
-    public function disable(): void {
-        $this->disabled = true;
+        $this->value = $this->safeHtml($value);
+        $this->text = $this->safeHtml($text);
     }
     
     /**
      * Selects the option.
+     *
+     * @return void
      */
     public function select(): void {
         $this->selected = true;
@@ -201,6 +141,8 @@ class option extends global_attr {
     
     /**
      * Deselects the option.
+     *
+     * @return void
      */
     public function deSelect(): void {
         $this->selected = false;
@@ -209,37 +151,26 @@ class option extends global_attr {
     /**
      * Checks if the option is selected.
      *
-     * @return bool True if the option is selected, false otherwise
+     * @return bool True if selected
      */
     public function isSelected(): bool {
         return $this->selected;
     }
     
     /**
-     * Checks if the option is disabled.
+     * Generate HTML representation of the option element.
      *
-     * @return bool True if the option is disabled, false otherwise
-     */
-    public function isDisabled(): bool {
-        return $this->disabled;
-    }
-    
-    /**
-     * Generates and retrieves the HTML representation of the option element.
-     *
-     * @return string The HTML representation of the option element
+     * @return string The HTML representation
      */
     public function getHtml(): string {
-        $space = str_repeat("\t", $this->level);   // Indentation
+        $space = str_repeat("\t", $this->level);
         
-        // Generate option tag
-        $option = "\n" . $space . "\t<option value='" . $this->value . "'"
-            . (($this->disabled) ? " disabled='disabled'" : "")
-            . (($this->selected) ? " selected='selected'" : "")
-            . ">" . $this->text . "</option>";
+        $html = "\n" . $space . '<option value="' . $this->value . '"'
+            . ($this->inert ? ' disabled="disabled"' : '')
+            . ($this->selected ? ' selected="selected"' : '')
+            . $this->getAttributes()
+            . '>' . $this->text . '</option>';
             
-            return $option;
+        return $html;
     }
 }
-
-?>

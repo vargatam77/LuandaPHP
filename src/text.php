@@ -1,26 +1,17 @@
 <?php
+declare(strict_types=1);
+
 namespace TamasVarga\LuandaPHP;
 
 /**
- * Class text
+ * Class Text
+ *
  * Represents a text element with various formatting options.
  */
-class text {
-    protected ?string $id = null;          // ID attribute
-    protected string $text;                // Text content
-    protected bool $formatted = false;     // Flag indicating preformatted text
-    public bool $strong = false;         // Flag indicating strong emphasis
-    protected array $classes = [];         // Array of CSS classes
-    protected int $level = 0;              // Indentation level
-    
-    /**
-     * Sets the indentation level for formatting.
-     *
-     * @param int $level The level of indentation
-     */
-    public function setLevel(int $level): void {
-        $this->level = $level;
-    }
+class Text extends Node {
+    protected string $text = ''; // Text content
+    protected bool $formatted = false; // Flag indicating preformatted text
+    public bool $strong = false; // Flag indicating strong emphasis
     
     /**
      * Constructor.
@@ -32,39 +23,23 @@ class text {
     }
     
     /**
-     * Sets the ID attribute.
-     *
-     * @param string $id The ID attribute value
-     */
-    public function setId(string $id): void {
-        $this->id = $id;
-    }
-    
-    /**
-     * Retrieves the ID attribute value.
-     *
-     * @return string|null The ID attribute value
-     */
-    public function getId(): ?string {
-        return $this->id;
-    }
-    
-    /**
-     * Adds a CSS class to the element.
-     *
-     * @param string $class The CSS class to add
-     */
-    public function addClass(string $class): void {
-        $this->classes[] = $class;
-    }
-    
-    /**
      * Sets the text content.
      *
      * @param string $text The text content to set
+     * @return void
      */
     public function setText(string $text): void {
-        $this->text = $text;
+        $this->text = $this->safeHtml($text);
+    }
+    
+    /**
+     * Appends text to the existing content.
+     *
+     * @param string $text The text content to append
+     * @return void
+     */
+    public function addText(string $text): void {
+        $this->text .= $this->safeHtml($text);
     }
     
     /**
@@ -77,21 +52,23 @@ class text {
     }
     
     /**
-     * Retrieves content from a given URL and sets it as the text content.
+     * Set whether the content should be preformatted with a <pre> tag.
      *
-     * @param string $url The URL to fetch content from
+     * @param bool $formatted Whether to preformat the content
+     * @return void
      */
-    public function getFromURL(string $url): void {
-        $this->text = file_get_contents($url);
+    public function preformat(bool $formatted = true): void {
+        $this->formatted = $formatted;
     }
     
     /**
-     * Retrieves the CSS classes as a string.
+     * Retrieves content from a given URL and sets it as the text content.
      *
-     * @return string The CSS classes formatted as a string
+     * @param string $url The URL to fetch content from
+     * @return void
      */
-    public function getClasses(): string {
-        return implode(' ', $this->classes);
+    public function getFromURL(string $url): void {
+        $this->text = $this->safeHtml(file_get_contents($url));
     }
     
     /**
@@ -100,30 +77,14 @@ class text {
      * @return string The HTML representation of the text
      */
     public function getHtml(): string {
-        $space = str_repeat("\t", $this->level);   // Indentation
+        $space = str_repeat("\t", $this->level);
         
-        $html = '';
-        if ($this->formatted) {
-            $html .= "\n{$space}<pre";
-            if (!empty($this->classes)) {
-                $html .= " class='" . $this->getClasses() . "'";
-            }
-            $html .= ">";
-        }
-        
-        if ($this->strong) {
-            $html .= "<strong>";
-        }
-        
-        $html .= $this->text;
-        
-        if ($this->strong) {
-            $html .= "</strong>";
-        }
-        
-        if ($this->formatted) {
-            $html .= "</pre>";
-        }
+        $html = ($this->formatted ? "\n" . $space . '<pre'
+            . $this->getAttributes() . '>' : '')
+            . ($this->strong ? '<strong>' : '')
+            . $this->text
+            . ($this->strong ? '</strong>' : '')
+            . ($this->formatted ? '</pre>' : '');
         
         return $html;
     }

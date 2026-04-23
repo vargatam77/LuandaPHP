@@ -1,11 +1,13 @@
 <?php
+declare(strict_types=1);
+
 namespace TamasVarga\LuandaPHP;
 
 /**
  * Class textarea
  * Represents a textarea element with various attributes.
  */
-class textarea extends global_attr {
+class Textarea extends GlobalAttr {
     protected int $level = 0;            // Indentation level
     protected ?string $parent = null;    // Form ID attribute
     public ?string $value = null;      // Initial value
@@ -33,20 +35,6 @@ class textarea extends global_attr {
      */
     public function __construct() {
         
-    }
-    
-    /**
-     * Disables the textarea element.
-     */
-    public function disable(): void {
-        $this->disabled = true;
-    }
-    
-    /**
-     * Sets the focus on the textarea element.
-     */
-    public function focus(): void {
-        $this->focused = true;
     }
     
     /**
@@ -90,30 +78,34 @@ class textarea extends global_attr {
     }
     
     /**
-     * Generates the HTML representation of the textarea element.
+     * Generate HTML representation of the textarea element.
      *
      * @return string The HTML representation of the textarea
      */
     public function getHtml(): string {
-        $space = str_repeat("\t", $this->level);   // Indentation
+        $space = str_repeat("\t", $this->level);
         
-        $textarea = "\n{$space}<textarea"
-            .($this->parent ? " form='{$this->parent}'" : "")
-            .($this->readonly ? " readonly='readonly'" : "")
-            .($this->disabled ? " disabled='disabled'" : "")
-            .($this->minlen ? " minlength='{$this->minlen}'" : "")
-            .($this->maxlen ? " maxlength='{$this->maxlen}'" : "")
-            .($this->rows ? " rows='{$this->rows}'" : "")
-            .($this->cols ? " cols='{$this->cols}'" : "")
-            .($this->required ? " required='required'" : "")
-            .($this->focused ? " autofocus='autofocus'" : "")
-            .($this->placeholder ? " placeholder='{$this->placeholder}'" : "")
-            .$this->getAttributes()
-            .">"
-            .($this->value ? "\n{$this->value}" : "")
-            ."</textarea>";
+        $html = "\n" . $space . '<textarea'
+            . ($this->parent ? ' form="' . $this->parent . '"' : '')
+            . ($this->readonly ? ' readonly="readonly"' : '')
+            . ($this->inert ? ' disabled="disabled"' : '')
+            . ($this->minlen ? ' minlength="' . (string)$this->minlen . '"' : '')
+            . ($this->maxlen ? ' maxlength="' . (string)$this->maxlen . '"' : '')
+            . ($this->rows ? ' rows="' . (string)$this->rows . '"' : '')
+            . ($this->cols ? ' cols="' . (string)$this->cols . '"' : '')
+            . ($this->required ? ' required="required"' : '')
+            . ($this->autofocus ? ' autofocus="autofocus"' : '')
+            . ($this->placeholder ? ' placeholder="' . $this->placeholder . '"' : '')
             
-        return $textarea;
+            . $this->getAttributes()
+            
+            . '>'
+                
+            . ($this->value ? $this->safeHtml((string)$this->value) : '')
+            
+            . '</textarea>';
+            
+        return $html;
     }
 }
 ?>

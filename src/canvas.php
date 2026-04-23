@@ -1,51 +1,19 @@
 <?php
+declare(strict_types=1);
+
 namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents a canvas HTML element.
  */
-class canvas extends global_attr {
-    protected ?html_content $content = null; // Content of the canvas
-    protected int $level = 0; // Level of indentation for HTML output
+class Canvas extends Node {
     
     /**
-     * Set the level of the canvas element.
-     *
-     * @param int $level The level to set.
-     */
-    public function setLevel(int $level): void {
-        $this->level = $level;
-    }
-    
-    /**
-     * Constructor method for the canvas class.
+     * Constructor for the Canvas element.
      */
     public function __construct() {
-        // Constructor can be left empty as no additional setup is needed
-    }
-    
-    /**
-     * Add content to the canvas.
-     *
-     * @param mixed $content The content to add to the canvas.
-     */
-    public function addContent($content): void {
-        if (!$this->content) {
-            $this->content = new html_content();
-        }
-        $this->content->add($content);
-    }
-    
-    /**
-     * Add a clone of content to the canvas.
-     *
-     * @param mixed $content The content to clone and add to the canvas.
-     */
-    public function addClone($content): void {
-        if (!$this->content) {
-            $this->content = new html_content();
-        }
-        $this->content->add(Cloner::getClone($content));
+        // Default HTML5 fallback content
+        $this->addContent(new Text('Your browser does not support the HTML5 canvas tag.'));
     }
     
     /**
@@ -58,17 +26,15 @@ class canvas extends global_attr {
             $this->content->setLevel($this->level);
         }
         
-        // Generate the indentation for HTML output
         $space = str_repeat("\t", $this->level);
         
-        // Construct the HTML for the canvas element
-        $canvas = "\n" . $space . "<canvas"
+        $html = "\n" . $space . '<canvas'
             . $this->getAttributes()
-            . ">"
-            . (($this->content) ? $this->content->getHtml() : "")
-            . "\n" . $space . "</canvas>";
-                
-        return $canvas;
+            . '>'
+            . ($this->content ? $this->content->getHtml() : '')
+            . '</canvas>';
+            
+        return $html;
     }
 }
 

@@ -1,38 +1,33 @@
 <?php
+declare(strict_types=1);
+
 namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents an HTML horizontal rule (HR) element.
  */
-class hr {
-    protected int $level = 0; // Level of indentation for HTML output
+class Hr extends Node {
     
     /**
-     * Set the indentation level for HTML output.
-     *
-     * @param int $level The level of indentation.
-     */
-    public function setLevel(int $level): void {
-        $this->level = $level;
-    }
-    
-    /**
-     * Constructor for the HR element.
+     * Constructor for the Hr element.
      */
     public function __construct() {
         
     }
     
     /**
-     * Generate HTML representation of the HR element.
+     * Generate the HTML representation of the hr element.
      *
-     * @return string The HTML string representing the HR element.
+     * @return string The HTML representation of the hr element.
      */
     public function getHtml(): string {
         $space = str_repeat("\t", $this->level);
-        $hr = "\n" . $space . "<hr/>";
         
-        return $hr;
+        $html = "\n" . $space . '<hr'
+            . $this->getAttributes()
+            . ' />';
+            
+        return $html;
     }
 }
 

@@ -1,20 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents a line break (<br>) HTML element.
  */
-class br {
-    protected int $level = 0;  // Level of indentation for HTML output
-    
-    /**
-     * Set the level of the line break element.
-     *
-     * @param int $level The level to set.
-     */
-    public function setLevel(int $level): void {
-        $this->level = $level;
-    }
+class Br extends Node {
     
     /**
      * Constructor method for the br class.
@@ -29,13 +21,13 @@ class br {
      * @return string The HTML representation of the br element.
      */
     public function getHtml(): string {
-        // Generate the indentation for HTML output
         $space = str_repeat("\t", $this->level);
         
-        // Construct the HTML for the br element
-        $br = "\n" . $space . "<br/>";
-        
-        return $br;
+        $html = "\n" . $space . '<br'
+            . $this->getAttributes()
+            . ' />';
+            
+        return $html;
     }
 }
 
