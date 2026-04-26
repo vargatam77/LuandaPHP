@@ -4,21 +4,23 @@ declare(strict_types=1);
 namespace TamasVarga\LuandaPHP;
 
 /**
- * Represents a <header> HTML element.
+ * Represents a <figcaption> HTML element.
  */
-class Header extends Node {
+class FigCaption extends Node {
 	
 	/**
-	 * Constructor for the Header element.
+	 * Constructor for the FigCaption element.
+	 *
+	 * @param string $text The caption text.
 	 */
 	public function __construct() {
-		
+	
 	}
 	
 	/**
-	 * Generate the HTML representation of the <header> element.
+	 * Generate the HTML representation of the <figcaption> element.
 	 *
-	 * @return string The HTML representation of the <header> element.
+	 * @return string The HTML representation of the <figcaption> element.
 	 */
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level + 1);
@@ -26,16 +28,17 @@ class Header extends Node {
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
 		$_html = special_chars::NEWLINE
-		. $_indent . '<header'
+		. $_indent . '<figcaption'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
 			. special_chars::NEWLINE
-			. $_indent . '</header>';
+			. $_indent . '</figcaption>';
 			
 		return $_html;
 	}
 }
+
 ?>

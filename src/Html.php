@@ -3,29 +3,69 @@ declare(strict_types=1);
 
 namespace TamasVarga\LuandaPHP;
 
+use TamasVarga\LuandaPHP\Misc\IncidentReporter;
+
 /**
  * Represents the top-level HTML document structure.
  */
 class Html extends Element {
-    public string $lang = 'en'; // Default language
-    public string $xmlns = 'http://www.w3.org/1999/xhtml'; // Spite-driven XML namespace
-    public ?Head $head = null; // Head section
-    public ?Body $body = null; // Body section
-    
+    protected string $lang		= 'en';
+    protected string $xmlns		= 'http://www.w3.org/1999/xhtml';
+    protected ?Head $head		= null;
+    protected ?Body $body		= null;
+
     /**
      * Constructor for the page.
      *
-     * @param string $page_title The title of the page
+     * @param string $pageTitle The title of the page.
      */
-    public function __construct(string $page_title) {
-        $this->head = new Head($page_title);
+    public function __construct(string $pageTitle) {
+        $this->head = new Head($pageTitle);
         $this->body = new Body();
     }
-    
-    public function setupFontAwesome(): void {
-    	// TODO <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    /**
+     * Sets the language attribute of the HTML element.
+     *
+     * @param string $lang The language code to set.
+     * @return void
+     */
+    public function setLang(string $lang): void {
+        $this->lang = $lang;
     }
-    
+
+    /**
+     * Sets up Font Awesome via CDN stylesheet.
+     * Free tier only — no API key required.
+     * For Pro icons, set up your own stylesheet via addStylesheet().
+     *
+     * @return void
+     */
+    public function setupFontAwesome(): void {
+        $this->addStylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+    }
+
+    /**
+     * Sets up Tailwind CSS via CDN.
+     * TODO: implement
+     *
+     * @return void
+     */
+    public function setupTailwind(): void {
+    	$this->addScript(script_type::HEADLINK, "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4");
+    }
+
+    /**
+     * Sets up Bootstrap via CDN.
+     * TODO: implement
+     *
+     * @return void
+     */
+    public function setupBootstrap(): void {
+    	$this->addScript(script_type::HEADLINK, "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js");
+    	$this->addStylesheet("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css");
+    }
+
     /**
      * Sets up meta tags for mobile devices.
      *
@@ -34,19 +74,19 @@ class Html extends Element {
     public function setupMobile(): void {
         $this->addMeta(new Meta('viewport', 'height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'));
     }
-    
+
     /**
      * Sets the charset meta tag.
      *
-     * @param string $charset The charset (default UTF-8)
+     * @param string $charset The charset, defaults to UTF-8.
      * @return void
      */
     public function setCharset(string $charset = 'UTF-8'): void {
-        $meta = new Meta();
-        $meta->setCharset($charset);
-        $this->addMeta($meta);
+        $_meta = new Meta();
+        $_meta->setCharset($charset);
+        $this->addMeta($_meta);
     }
-    
+
     /**
      * Sets meta tags to prevent caching.
      *
@@ -57,103 +97,103 @@ class Html extends Element {
         $this->addMeta(new Meta('Pragma', 'no-cache'));
         $this->addMeta(new Meta('Expires', '0'));
     }
-    
+
     /**
-     * Sets the base URL and target.
+     * Sets the base URL and optional target for the page.
      *
-     * @param string $url The base URL
-     * @param string|null $target Optional target
+     * @param string      $url    The base URL.
+     * @param string|null $target Optional target.
      * @return void
      */
     public function setBase(string $url, ?string $target = null): void {
-        $this->head->base = $url;
-        if ($target) $this->head->target = $target;
+        $this->head->setBase($url, $target);
     }
-    
+
     /**
      * Adds a stylesheet link to the head section.
      *
-     * @param string $url The URL of the stylesheet
-     * @param string|null $media The media query
+     * @param string      $url   The URL of the stylesheet.
+     * @param string|null $media Optional media query.
      * @return void
      */
     public function addStylesheet(string $url, ?string $media = null): void {
-        $this->head->links[] = new Resource('stylesheet', $url, $media);
+        $this->head->addLink(new Resource('stylesheet', $url, $media));
     }
-    
+
     /**
      * Adds a generic Resource link to the head section.
      *
-     * @param Resource $link The link object
+     * @param Resource $link The link object.
      * @return void
      */
     public function addLink(Resource $link): void {
-        $this->head->links[] = $link;
+        $this->head->addLink($link);
     }
-    
+
     /**
      * Adds a meta tag to the head section.
      *
-     * @param Meta $meta The meta tag object
+     * @param Meta $meta The meta tag object.
      * @return void
      */
     public function addMeta(Meta $meta): void {
-        $this->head->metas[] = $meta;
+        $this->head->addMeta($meta);
     }
-    
+
     /**
      * Adds a script with specific placement logic.
      *
-     * @param string $type Use script_type constants
-     * @param string $url_or_code Script source or inline code
-     * @param string|null $crossorigin Optional crossorigin
+     * @param string      $type        Use script_type:: constants.
+     * @param string      $urlOrCode   Script source URL or inline code.
+     * @param string|null $crossorigin Optional crossorigin attribute.
      * @return void
      */
-    public function addScript(string $type, string $url_or_code, ?string $crossorigin = null): void {
-        $script = new Script($url_or_code, $crossorigin);
-        if ($type === 'HEADLINK') $this->head->scripts[] = $script;
-        if ($type === 'BODYLINK') $this->body->scripts[] = $script;
-        if ($type === 'RUNCMD') $this->body->commands[] = $script;
+    public function addScript(string $type, string $urlOrCode, ?string $crossorigin = null): void {
+        $_script = new Script($urlOrCode, $crossorigin);
+
+        match ($type) {
+            script_type::HEADLINK => $this->head->addScript($_script),
+            script_type::BODYLINK => $this->body->addScript($_script),
+            script_type::RUNCMD   => $this->body->addCommand($_script),
+            default               => IncidentReporter::isAvailable()
+                ? IncidentReporter::report('Html', 'Unknown script type: ' . $type)
+                : null
+        };
     }
-    
+
     /**
      * Changes the page title.
      *
-     * @param string $new_title The new title string
+     * @param string $newTitle The new title string.
      * @return void
      */
-    public function changeTitle(string $new_title): void {
-        $this->head->title->text = $this->safeHtml($new_title);
+    public function changeTitle(string $newTitle): void {
+        $this->head->setTitle($newTitle);
     }
-    
+
     /**
-     * Changes the page title.
+     * Adds a new element to the body.
      *
-     * @param object $content Add a new element to the body
+     * @param IRenderableInterface $content The content element to add.
      * @return void
      */
-    public function addContent(object $content): void {
+    public function addContent(IRenderableInterface $content): void {
         $this->body->addContent($content);
     }
-    
+
     /**
      * Final output of the entire document.
      *
      * @return void
      */
-    public function show(): void {
+    public function Show(): void {
         echo '<!DOCTYPE html>';
-        echo "\n" . '<html xmlns="' . $this->xmlns . '" lang="' . $this->lang . '">';
-        
-        if ($this->head) {
-            echo $this->head->getHtml();
-        }
-        
-        if ($this->body) {
-            echo $this->body->getHtml();
-        }
-        
-        echo "\n" . '</html>';
+        echo special_chars::NEWLINE . '<html xmlns="' . $this->xmlns . '" lang="' . $this->lang . '">';
+
+        if ($this->hasValue($this->head)) $this->head->Show();
+        if ($this->hasValue($this->body)) $this->body->Show();
+
+        echo special_chars::NEWLINE . '</html>';
     }
 }
 
@@ -162,49 +202,122 @@ class Html extends Element {
  */
 class Head extends Element {
     protected Title $title;
-    protected ?string $base = null;
-    protected ?string $target = null;
-    protected int $level = 1;
-    public array $links = [];
-    public array $scripts = [];
-    public array $metas = [];
-    
-    public function __construct(string $title_text) {
-        $this->title = new Title($title_text);
+    protected ?string $base		= null;
+    protected ?string $target	= null;
+    protected int $level		= 1;
+    protected array $links		= [];
+    protected array $scripts	= [];
+    protected array $metas		= [];
+
+    /**
+     * Constructor for the Head element.
+     *
+     * @param string $titleText The page title.
+     */
+    public function __construct(string $titleText) {
+        $this->title = new Title($titleText);
+    }
+
+    /**
+     * Sets the page title.
+     *
+     * @param string $titleText The new title text.
+     * @return void
+     */
+    public function setTitle(string $titleText): void {
+        $this->title->setText($titleText);
+    }
+
+    /**
+     * Sets the base URL and optional target.
+     *
+     * @param string      $url    The base URL.
+     * @param string|null $target Optional target.
+     * @return void
+     */
+    public function setBase(string $url, ?string $target = null): void {
+        $this->base = $url;
+        if ($this->hasValue($target))
+        	$this->target = $target;
+    }
+
+    /**
+     * Adds a Resource link to the head.
+     *
+     * @param Resource $link The link object.
+     * @return void
+     */
+    public function addLink(Resource $link): void {
+        $this->links[] = $link;
+    }
+
+    /**
+     * Adds a meta tag to the head.
+     *
+     * @param Meta $meta The meta object.
+     * @return void
+     */
+    public function addMeta(Meta $meta): void {
+        $this->metas[] = $meta;
+    }
+
+    /**
+     * Adds a script to the head.
+     *
+     * @param Script $script The script object.
+     * @return void
+     */
+    public function addScript(Script $script): void {
+        $this->scripts[] = $script;
     }
     
+    /**
+     * Output the <head> section directly to the browser.
+     *
+     * @return void
+     */
+    public function Show(): void {
+    	echo $this->getHtml();
+    }
+
+    /**
+     * Generate the HTML representation of the head element.
+     *
+     * @return string The HTML representation of the head element.
+     */
     public function getHtml(): string {
-        $space = str_repeat("\t", $this->level);
-        
-        $html = "\n" . $space . '<head>';
-        
-        $html .= $this->title->getHtml();
-        
-        if ($this->base || $this->target) {
-            $html .= "\n" . $space . "\t" . '<base'
-                . ($this->base ? ' href="' . $this->base . '"' : '')
-                . ($this->target ? ' target="' . $this->target . '"' : '')
+        $_indent = str_repeat(indent_type::TAB, $this->level);
+        $_inner  = $_indent . indent_type::TAB;
+
+        $_html = special_chars::NEWLINE . $_indent . '<head>';
+
+        $_html .= $this->title->getHtml();
+
+        if ($this->hasValue($this->base) || $this->hasValue($this->target)) {
+            $_html .= special_chars::NEWLINE . $_inner . '<base'
+                . ($this->hasValue($this->base)   ? ' href="'   . $this->base   . '"' : '')
+                . ($this->hasValue($this->target) ? ' target="' . $this->target . '"' : '')
                 . ' />';
         }
-        
-        foreach ($this->metas as $meta) {
-            $meta->setLevel($this->level + 1);
-            $html .= $meta->getHtml();
+
+        foreach ($this->metas as $_meta) {
+            $_meta->setLevel($this->level + 1);
+            $_html .= $_meta->getHtml();
         }
-        
-        foreach ($this->links as $link) {
-            $link->setLevel($this->level + 1);
-            $html .= $link->getHtml();
+
+        foreach ($this->links as $_link) {
+            $_link->setLevel($this->level + 1);
+            $_html .= $_link->getHtml();
         }
-        
-        foreach ($this->scripts as $script) {
-            $script->setLevel($this->level + 1);
-            $html .= $script->getHtml();
+
+        foreach ($this->scripts as $_script) {
+            $_script->setLevel($this->level + 1);
+            $_html .= $_script->getHtml();
         }
-        
-        $html .= "\n" . $space . '</head>';
-        
-        return $html;
+
+        $_html .= special_chars::NEWLINE . $_indent . '</head>';
+
+        return $_html;
     }
 }
 
@@ -212,31 +325,61 @@ class Head extends Element {
  * Internal Body structure for the Html class.
  */
 class Body extends Node {
-    public array $scripts = [];
-    public array $commands = [];
-    
+    protected int $level			= 1;
+    protected array $scripts		= [];
+    protected array $commands		= [];
+
+    /**
+     * Adds a script to the body.
+     *
+     * @param Script $script The script object.
+     * @return void
+     */
+    public function addScript(Script $script): void {
+        $this->scripts[] = $script;
+    }
+
+    /**
+     * Adds a command script to the body.
+     *
+     * @param Script $script The script object.
+     * @return void
+     */
+    public function addCommand(Script $script): void {
+        $this->commands[] = $script;
+    }
+
+    /**
+     * Generate the HTML representation of the body element.
+     *
+     * @return string The HTML representation of the body element.
+     */
     public function getHtml(): string {
-        if ($this->content) $this->content->setLevel($this->level);
-        
-        $space = str_repeat("\t", $this->level);
-        
-        $html = "\n" . $space . '<body' . $this->getAttributes() . '>';
-        
-        if ($this->content) $html .= $this->content->getHtml();
-        
-        foreach ($this->scripts as $script) {
-            $script->setLevel($this->level + 1);
-            $html .= $script->getHtml();
+        $this->content?->setLevel($this->level + 1);
+
+        $_indent = str_repeat(indent_type::TAB, $this->level);
+
+        $_html = special_chars::NEWLINE
+            . $_indent . '<body'
+            . $this->getClasses()
+            . $this->getAttributes()
+            . $this->getEvents()
+            . '>'
+            . $this->content?->getHtml();
+
+        foreach ($this->scripts as $_script) {
+            $_script->setLevel($this->level + 1);
+            $_html .= $_script->getHtml();
         }
-        
-        foreach ($this->commands as $script) {
-            $script->setLevel($this->level + 1);
-            $html .= $script->runScript();
+
+        foreach ($this->commands as $_script) {
+            $_script->setLevel($this->level + 1);
+            $_html .= $_script->runScript();
         }
-        
-        $html .= "\n" . $space . '</body>';
-        
-        return $html;
+
+        $_html .= special_chars::NEWLINE . $_indent . '</body>';
+
+        return $_html;
     }
 }
 
@@ -244,21 +387,39 @@ class Body extends Node {
  * Internal Title structure for the Head section.
  */
 class Title extends Element {
-    public string $text;
-    protected int $level = 2;
-    
+    protected string $text;
+    protected int    $level = 2;
+
+    /**
+     * Constructor for the Title element.
+     *
+     * @param string $text The title text.
+     */
     public function __construct(string $text) {
         $this->text = $this->safeHtml($text);
     }
-    
+
+    /**
+     * Sets the title text.
+     *
+     * @param string $text The title text to set.
+     * @return void
+     */
+    public function setText(string $text): void {
+        $this->text = $this->safeHtml($text);
+    }
+
+    /**
+     * Generate the HTML representation of the title element.
+     *
+     * @return string The HTML representation of the title element.
+     */
     public function getHtml(): string {
-        $space = str_repeat("\t", $this->level);
-        
-        $html = ($this->text !== '')
-        ? "\n" . $space . '<title>' . $this->text . '</title>'
+        $_indent = str_repeat(indent_type::TAB, $this->level);
+
+        return $this->hasValue($this->text)
+            ? special_chars::NEWLINE . $_indent . '<title>' . $this->text . '</title>'
             : '';
-            
-            return $html;
     }
 }
 

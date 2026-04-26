@@ -342,6 +342,16 @@ class charset {
 //--------------------------------------------------------------------------------------------------------------------------------
 
 /**
+ * Class to define constants for form autocomplete values.
+ */
+class form_autocomplete {
+	public const ON				= "on";
+	public const OFF			= "off";
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+/**
  * Class to define constants for form method values.
  */
 class form_method {

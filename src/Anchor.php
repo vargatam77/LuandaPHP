@@ -9,10 +9,10 @@ namespace TamasVarga\LuandaPHP;
  * Represents a hyperlink (<a>) element with various attributes.
  */
 class Anchor extends Node {
-	protected ?string $url = null;    // URL attribute
-	protected ?string $target = null; // Target attribute
-	protected ?string $rel = null;    // Relationship attribute
-	protected ?string $type = null;   // Type attribute
+	protected ?string $url			= null;    // URL attribute
+	protected ?string $target		= null; // Target attribute
+	protected ?string $rel			= null;    // Relationship attribute
+	protected ?string $type			= null;   // Type attribute
 	
 	/**
 	 * Constructor for the Anchor element.
@@ -20,7 +20,8 @@ class Anchor extends Node {
 	 * @param string|null $url Optional URL
 	 */
 	public function __construct(?string $url = null) {
-		if ($url) $this->setUrl($url);
+		if ($this->hasValue($url))
+			$this->setUrl($url);
 	}
 	
 	/**
@@ -75,10 +76,10 @@ class Anchor extends Node {
 		
 		$_html = special_chars::NEWLINE
 			. $_indent . '<a'
-			. ($this->hasValue($this->url) ? ' href="' . $this->url . '"' : '')
-			. ($this->hasValue($this->target) ? ' target="' . $this->target . '"' : '')
-			. ($this->hasValue($this->type) ? ' type="' . $this->type . '"' : '')
-			. ($this->hasValue($this->rel) ? ' rel="' . $this->rel . '"' : '')
+			. ($this->hasValue($this->url)			? ' href="' . $this->url . '"'			: '')
+			. ($this->hasValue($this->target)		? ' target="' . $this->target . '"'		: '')
+			. ($this->hasValue($this->type)			? ' type="' . $this->type . '"'			: '')
+			. ($this->hasValue($this->rel)			? ' rel="' . $this->rel . '"'			: '')
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()

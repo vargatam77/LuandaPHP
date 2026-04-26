@@ -15,7 +15,8 @@ class BlockQuote extends Node {
 	 * @param string|null $citeUrl Optional URL source.
 	 */
 	public function __construct(?string $citeUrl = null) {
-		if ($citeUrl) $this->setCiteUrl($citeUrl);
+		if ($this->hasValue($citeUrl))
+			$this->setCiteUrl($citeUrl);
 	}
 	
 	/**

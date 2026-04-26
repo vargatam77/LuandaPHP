@@ -7,30 +7,30 @@ namespace TamasVarga\LuandaPHP;
  * Represents an input HTML element.
  */
 class Input extends Node {
-    protected ?string $parent = null; // Parent form ID for the input
-    protected ?string $alt = null; // Alternate text for the input
-    protected ?string $src = null; // Source URL for image inputs
-    protected ?int $width = null; // Width of image inputs
-    protected ?int $height = null; // Height of image inputs
-    public string|int|float|null $value = null; // Value attribute of the input TODO
-    public bool $readonly = false; // Indicates if the input is readonly TODO
-    public bool $required = false; // Indicates if the input is required TODO
-    protected ?string $type = null; // Type of the input
-    protected ?int $size = null; // Size of the input
-    protected ?int $minlen = null; // Minimum length for text input
-    protected ?int $maxlen = null; // Maximum length for text input
-    protected string|int|float|null $min = null; // Minimum value for input
-    protected string|int|float|null $max = null; // Maximum value for input
-    protected bool $multiple = false; // Indicates if multiple files can be selected
-    protected ?string $pattern = null; // Pattern for validating input
-    protected ?string $placeholder = null; // Placeholder text for input
-    protected ?string $step = null; // Step value for number input
-    protected bool $checked = false; // Indicates if the input is checked
-    protected array $fileformats = []; // Accepted file formats for file input
-    protected ?string $device = null; // Device type for capture input
-    public bool $autocomplete = true; // Autocomplete attribute for input TODO
-    protected ?Output $output = null; // Output element associated with input
-    protected ?Datalist $datalist = null; // Datalist element associated with input
+    protected ?string $parent				= null; // Parent form ID for the input
+    protected ?string $alt					= null; // Alternate text for the input
+    protected ?string $src					= null; // Source URL for image inputs
+    protected ?int $width					= null; // Width of image inputs
+    protected ?int $height					= null; // Height of image inputs
+    public string|int|float|null $value		= null; // Value attribute of the input TODO
+    public bool $readonly					= false; // Indicates if the input is readonly TODO
+    public bool $required					= false; // Indicates if the input is required TODO
+    protected ?string $type					= null; // Type of the input
+    protected ?int $size					= null; // Size of the input
+    protected ?int $minlen					= null; // Minimum length for text input
+    protected ?int $maxlen					= null; // Maximum length for text input
+    protected string|int|float|null $min	= null; // Minimum value for input TODO
+    protected string|int|float|null $max	= null; // Maximum value for input TODO
+    protected bool $multiple				= false; // Indicates if multiple files can be selected
+    protected ?string $pattern				= null; // Pattern for validating input
+    protected ?string $placeholder			= null; // Placeholder text for input
+    protected ?string $step					= null; // Step value for number input
+    protected bool $checked					= false; // Indicates if the input is checked
+    protected array $fileformats			= []; // Accepted file formats for file input
+    protected ?string $device				= null; // Device type for capture input
+    public bool $autocomplete				= true; // Autocomplete attribute for input TODO
+    protected ?Output $output				= null; // Output element associated with input
+    protected ?Datalist $datalist			= null; // Datalist element associated with input
     
     /**
      * Constructor for the input element.

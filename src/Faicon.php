@@ -7,11 +7,11 @@ namespace TamasVarga\LuandaPHP;
  * Represents a Font Awesome icon with various options.
  */
 class Faicon extends Node {
-	protected ?string $anim = null;
-	protected ?string $rotation = null;
-	protected ?string $size = null;
-	protected string $type = icon_type::SOLID;
-	protected string $icon = 'info';
+	protected ?string $anim			= null;
+	protected ?string $rotation		= null;
+	protected ?string $size			= null;
+	protected string $type			= icon_type::SOLID;
+	protected string $icon			= 'info';
 	
 	/**
 	 * Constructor for the Faicon class.
@@ -73,9 +73,9 @@ class Faicon extends Node {
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
 		$this->addClass($this->type . ' ' . 'fa-' . $this->icon
-			. ($this->hasValue($this->rotation) ? ' ' . $this->rotation : '')
-			. ($this->hasValue($this->anim)     ? ' ' . $this->anim     : '')
-			. ($this->hasValue($this->size)     ? ' ' . $this->size     : ''));
+			. ($this->hasValue($this->rotation)		? ' ' . $this->rotation		: '')
+			. ($this->hasValue($this->anim)			? ' ' . $this->anim			: '')
+			. ($this->hasValue($this->size)			? ' ' . $this->size			: ''));
 		
 		$_html = special_chars::NEWLINE
 			. $_indent . '<i'
@@ -92,51 +92,51 @@ class Faicon extends Node {
  * Constants representing different types of Font Awesome icons.
  */
 class icon_type {
-	public const SOLID   = 'fa-solid';
-	public const REGULAR = 'fa-regular';
-	public const LIGHT   = 'fa-light';
-	public const DUO     = 'fa-duotone';
-	public const THIN    = 'fa-thin';
-	public const BRAND   = 'fa-brands';
+	public const SOLID			= 'fa-solid';
+	public const REGULAR		= 'fa-regular';
+	public const LIGHT			= 'fa-light';
+	public const DUO			= 'fa-duotone';
+	public const THIN			= 'fa-thin';
+	public const BRAND			= 'fa-brands';
 }
 
 /**
  * Constants representing different animations for Font Awesome icons.
  */
 class icon_anim {
-	public const BEAT      = 'fa-beat';
-	public const BEATFADE  = 'fa-beat-fade';
-	public const BOUNCE    = 'fa-bounce';
-	public const FADE      = 'fa-fade';
-	public const FLIP      = 'fa-flip';
-	public const SHAKE     = 'fa-shake';
-	public const SPIN      = 'fa-spin';
-	public const REVERSE   = 'fa-spin fa-spin-reverse';
-	public const PULSE     = 'fa-spin fa-spin-pulse';
+	public const BEAT			= 'fa-beat';
+	public const BEATFADE		= 'fa-beat-fade';
+	public const BOUNCE			= 'fa-bounce';
+	public const FADE			= 'fa-fade';
+	public const FLIP			= 'fa-flip';
+	public const SHAKE			= 'fa-shake';
+	public const SPIN			= 'fa-spin';
+	public const REVERSE		= 'fa-spin fa-spin-reverse';
+	public const PULSE			= 'fa-spin fa-spin-pulse';
 }
 
 /**
  * Constants representing different rotations for Font Awesome icons.
  */
 class icon_rotation {
-	public const ROT90  = 'fa-rotate-90';
-	public const ROT180 = 'fa-rotate-180';
-	public const ROT270 = 'fa-rotate-270';
-	public const HFLIP  = 'fa-flip-horizontal';
-	public const VFLIP  = 'fa-flip-vertical';
-	public const HVFLIP = 'fa-flip-both';
+	public const ROT90			= 'fa-rotate-90';
+	public const ROT180			= 'fa-rotate-180';
+	public const ROT270			= 'fa-rotate-270';
+	public const HFLIP			= 'fa-flip-horizontal';
+	public const VFLIP			= 'fa-flip-vertical';
+	public const HVFLIP			= 'fa-flip-both';
 }
 
 /**
  * Constants representing different sizes for Font Awesome icons.
  */
 class icon_size {
-	public const XXS = 'fa-2xs';
-	public const XS  = 'fa-xs';
-	public const SM  = 'fa-sm';
-	public const LG  = 'fa-lg';
-	public const XL  = 'fa-xl';
-	public const XXL = 'fa-2xl';
+	public const XXS			= 'fa-2xs';
+	public const XS				= 'fa-xs';
+	public const SM				= 'fa-sm';
+	public const LG				= 'fa-lg';
+	public const XL				= 'fa-xl';
+	public const XXL			= 'fa-2xl';
 }
 
 ?>

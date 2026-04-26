@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace TamasVarga\LuandaPHP;
 
 /**
- * Represents a code HTML element.
+ * Represents a code HTML element. TODO rework this
  */
 class Code extends Node {
     protected ?string $text = null; // Text content of the code element

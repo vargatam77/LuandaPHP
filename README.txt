@@ -1,4 +1,7 @@
-LuandaPHP
+LuandaPHP WIP!!!!!!
+
+Update to PHP 8.2 and complete refactoring heavily work in progress dev2.0 version.
+NOT READY TO BE USED, PLEASE WAIT FOR ANNOUNCEMENT!
 
 A simple backend framework to remove the need for HTML from backend PHP development
 

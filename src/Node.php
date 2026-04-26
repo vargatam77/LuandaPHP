@@ -47,7 +47,7 @@ abstract class Node extends GlobalAttr implements IRenderableInterface {
     }
     
     /**
-     * Output the <div> element directly to the browser.
+     * Output the node element directly to the browser.
      *
      * @return void
      */

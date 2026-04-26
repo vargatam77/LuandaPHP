@@ -5,96 +5,69 @@ namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents a <figure> HTML element.
+ * Caption can appear before or after the content per HTML5 spec.
  */
 class Figure extends Node {
-    protected ?FigCaption $caption = null; // Optional caption for this figure
-
-    /**
-     * Constructor for the Figure element.
-     *
-     * @param string|null $captionText Optional caption text.
-     */
-    public function __construct(?string $captionText = null) {
-        if ($captionText !== null) {
-            $this->caption = new FigCaption($captionText);
-        }
-    }
-
-    /**
-     * Set a FigCaption element explicitly.
-     *
-     * @param FigCaption $caption The caption element.
-     * @return void
-     */
-    public function setCaption(FigCaption $caption): void {
-        $this->caption = $caption;
-    }
-
-    /**
-     * Generate the HTML representation of the <figure> element.
-     *
-     * @return string The HTML representation of the <figure> element.
-     */
-    public function getHtml(): string {
-        if ($this->content) {
-            $this->content->setLevel($this->level);
-        }
-
-        if ($this->caption) {
-            $this->caption->setLevel($this->level + 1);
-        }
-
-        $space = str_repeat("\t", $this->level);
-
-        $html = "\n" . $space . '<figure'
-            . $this->getAttributes()
-            . '>'
-            . ($this->content ? $this->content->getHtml() : '')
-            . ($this->caption ? $this->caption->getHtml() : '')
-            . "\n" . $space . '</figure>';
-
-        return $html;
-    }
+	protected ?FigCaption $caption = null;
+	protected bool $captionPosition = caption_position::FIRST;
+	
+	/**
+	 * Constructor for the Figure element.
+	 *
+	 * @param FigCaption $caption The caption element.
+	 * @param bool $captionpositioon Sets whether the caption
+	 * appears ahead of after the content
+	 */
+	public function __construct(FigCaption $caption, bool $captionposition = caption_position::FIRST) {
+		$this->caption = $caption;
+		$this->captionPosition = $captionposition;
+	}
+	
+	/**
+	 * Set a FigCaption element explicitly.
+	 *
+	 * @param FigCaption $caption The caption element.
+	 * @return void
+	 */
+	public function setCaption(FigCaption $caption): void {
+		$this->caption = $caption;
+	}
+	
+	/**
+	 * Generate the HTML representation of the <figure> element.
+	 *
+	 * @return string The HTML representation of the <figure> element.
+	 */
+	public function getHtml(): string {
+		$this->content?->setLevel($this->level + 1);
+		$this->caption?->setLevel($this->level + 1);
+		
+		$_indent = str_repeat(indent_type::TAB, $this->level);
+		
+		$_html = special_chars::NEWLINE
+		. $_indent . '<figure'
+			. $this->getClasses()
+			. $this->getAttributes()
+			. $this->getEvents()
+			. '>'
+			. ($this->captionPosition === caption_position::FIRST) ? $this->caption?->getHtml() : ''
+			. $this->content?->getHtml()
+			. ($this->captionPosition === caption_position::LAST) ? $this->caption?->getHtml() : ''
+			. special_chars::NEWLINE
+			. $_indent . '</figure>';
+			
+		return $_html;
+	}
 }
 
-//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------
 
 /**
- * Represents a <figcaption> HTML element.
+ * Class to define constants for caption position
  */
-class FigCaption extends Node {
-    protected string $text; // Caption text
-
-    /**
-     * Constructor for the FigCaption element.
-     *
-     * @param string $text The caption text.
-     */
-    public function __construct(string $text) {
-        $this->text = $this->safeHtml($text);
-    }
-
-    /**
-     * Generate the HTML representation of the <figcaption> element.
-     *
-     * @return string The HTML representation of the <figcaption> element.
-     */
-    public function getHtml(): string {
-        if ($this->content) {
-            $this->content->setLevel($this->level);
-        }
-
-        $space = str_repeat("\t", $this->level);
-
-        $html = "\n" . $space . '<figcaption'
-            . $this->getAttributes()
-            . '>'
-            . $this->text
-            . ($this->content ? $this->content->getHtml() : '')
-            . '</figcaption>';
-
-        return $html;
-    }
+class caption_position {
+	public const bool FIRST = true;
+	public const bool LAST = false;
 }
 
 ?>

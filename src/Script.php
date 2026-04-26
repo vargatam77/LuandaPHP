@@ -51,7 +51,7 @@ class Script extends Node {
      *
      * @return string The HTML representation of the script tag
      */
-    public function getScript(): string {
+    public function getHtml(): string {
         $space = str_repeat("\t", $this->level);
         
         $html = "\n" . $space . '<script'

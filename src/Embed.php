@@ -8,10 +8,10 @@ namespace TamasVarga\LuandaPHP;
  * Void element — takes no children.
  */
 class Embed extends Node {
-	protected string $src;
-	protected ?string $mediatype = null;
-	protected ?int $width = null;
-	protected ?int $height = null;
+	protected ?string $src			= null;
+	protected ?string $mediatype	= null;
+	protected ?int $width			= null;
+	protected ?int $height			= null;
 	
 	/**
 	 * Constructor for the Embed element.
@@ -65,9 +65,9 @@ class Embed extends Node {
 		$_html = special_chars::NEWLINE
 			. $_indent . '<embed'
 			. ' src="' . $this->src . '"'
-			. ($this->hasValue($this->mediatype) ? ' type="'   . $this->mediatype . '"' : '')
-			. ($this->hasValue($this->width)     ? ' width="'  . $this->width     . '"' : '')
-			. ($this->hasValue($this->height)    ? ' height="' . $this->height    . '"' : '')
+			. ($this->hasValue($this->mediatype)	? ' type="' . $this->mediatype . '"'	: '')
+			. ($this->hasValue($this->width)		? ' width="' . $this->width . '"'		: '')
+			. ($this->hasValue($this->height)		? ' height="' . $this->height . '"'		: '')
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
@@ -76,4 +76,5 @@ class Embed extends Node {
 		return $_html;
 	}
 }
+
 ?>
