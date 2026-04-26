@@ -5,8 +5,7 @@ namespace TamasVarga\LuandaPHP\Misc;
 
 /**
  * Static internal error handling
- // TODO: extend! -write-to-file -produce-html-output normal.
-  *
+ * Extended: -write-to-file -produce-html-output
  */
 class IncidentReporter {
     private static array $storage = [];
@@ -20,8 +19,12 @@ class IncidentReporter {
     }
     
     /**
-     * The actual error reporting
-     * We concatenate for the storage to keep it "speaking" and linear
+     * The actual error reporting.
+     * We concatenate for the storage to keep it "speaking" and linear.
+     *
+     * @param string $origin  The class or context where the error occurred.
+     * @param string $message Human-readable description of the error.
+     * @param int    $code    Optional error/status code, defaults to 0.
      */
     public static function report(string $origin, string $message, int $code = 0): void {
         self::$storage[] = '[' . date('H:i:s') . '] '
@@ -30,8 +33,87 @@ class IncidentReporter {
             . 'Code: ' . (string)$code;
     }
     
+    /**
+     * Retrieve all stored log entries.
+     *
+     * @return array List of formatted log strings in chronological order.
+     */
     public static function getLogs(): array {
         return self::$storage;
+    }
+    
+    /**
+     * Write all stored log entries to a file.
+     * Appends to the file if it already exists.
+     *
+     * @param string $filePath Destination file path
+     * @throws \RuntimeException If the file cannot be written
+     */
+    public static function writeToFile(string $filePath): void {
+        if (empty(self::$storage)) {
+            return;
+        }
+        
+        $content = implode(PHP_EOL, self::$storage) . PHP_EOL;
+        
+        if (file_put_contents($filePath, $content, FILE_APPEND | LOCK_EX) === false) {
+            self::report('IncidentReporter', 'Failed to write log to file: ' . $filePath);
+        }
+    }
+    
+    /**
+     * Produce a self-contained HTML report of all stored log entries.
+     * Returns the HTML string; does not write to disk.
+     *
+     * @param string $title Optional page/report title
+     * @return string Full HTML document
+     */
+    public static function toHtml(string $title = 'Incident Report'): string {
+        $escapedTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+        $generatedAt  = htmlspecialchars(date('Y-m-d H:i:s'), ENT_QUOTES, 'UTF-8');
+        
+        $rows = '';
+        foreach (self::$storage as $index => $entry) {
+            $escaped = htmlspecialchars($entry, ENT_QUOTES, 'UTF-8');
+            $rowClass = $index % 2 === 0 ? 'even' : 'odd';
+            $rows .= "            <tr class=\"{$rowClass}\"><td>" . ($index + 1) . "</td><td>{$escaped}</td></tr>\n";
+        }
+        
+        if ($rows === '') {
+            $rows = '            <tr><td colspan="2"><em>No incidents recorded.</em></td></tr>' . "\n";
+        }
+        
+        return <<<HTML
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>{$escapedTitle}</title>
+            <style>
+                body { font-family: monospace; background: #1e1e1e; color: #d4d4d4; padding: 2rem; }
+                h1   { color: #ce9178; margin-bottom: 0.25rem; }
+                p.meta { color: #6a9955; font-size: 0.85rem; margin-top: 0; }
+                table { border-collapse: collapse; width: 100%; margin-top: 1.5rem; }
+                th   { background: #2d2d2d; color: #9cdcfe; padding: 0.5rem 1rem; text-align: left; }
+                td   { padding: 0.4rem 1rem; vertical-align: top; }
+                tr.even { background: #252526; }
+                tr.odd  { background: #1e1e1e; }
+                td:first-child { color: #858585; width: 3rem; text-align: right; }
+            </style>
+        </head>
+        <body>
+            <h1>{$escapedTitle}</h1>
+            <p class="meta">Generated at: {$generatedAt} &mdash; Total entries: {$entry->Count}</p>
+            <table>
+                <thead><tr><th>#</th><th>Log Entry</th></tr></thead>
+                <tbody>
+                    {$rows}
+                </tbody>
+            </table>
+        </body>
+        </html>
+        HTML;
     }
 }
 

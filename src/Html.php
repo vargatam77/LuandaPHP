@@ -22,6 +22,10 @@ class Html extends Element {
         $this->body = new Body();
     }
     
+    public function setupFontAwesome(): void {
+    	// TODO <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    }
+    
     /**
      * Sets up meta tags for mobile devices.
      *

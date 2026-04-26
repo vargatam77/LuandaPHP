@@ -13,8 +13,8 @@ class Form extends Node {
     protected ?string $target = null; // Browsing context for result
     protected array $charsets = []; // Accepted charsets for submission
     protected ?string $enctype = null; // Content type for submission
-    public bool $autocomplete = true; // Enable or disable autocomplete
-    public bool $novalidate = false; // Indicates if form should be validated
+    protected bool $autocomplete = true; // Enable or disable autocomplete TODO
+    protected bool $novalidate = false; // Indicates if form should be validated TODO
     
     /**
      * Constructor to initialize form with optional URL and method.

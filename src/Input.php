@@ -12,9 +12,9 @@ class Input extends Node {
     protected ?string $src = null; // Source URL for image inputs
     protected ?int $width = null; // Width of image inputs
     protected ?int $height = null; // Height of image inputs
-    public string|int|float|null $value = null; // Value attribute of the input
-    public bool $readonly = false; // Indicates if the input is readonly
-    public bool $required = false; // Indicates if the input is required
+    public string|int|float|null $value = null; // Value attribute of the input TODO
+    public bool $readonly = false; // Indicates if the input is readonly TODO
+    public bool $required = false; // Indicates if the input is required TODO
     protected ?string $type = null; // Type of the input
     protected ?int $size = null; // Size of the input
     protected ?int $minlen = null; // Minimum length for text input
@@ -28,7 +28,7 @@ class Input extends Node {
     protected bool $checked = false; // Indicates if the input is checked
     protected array $fileformats = []; // Accepted file formats for file input
     protected ?string $device = null; // Device type for capture input
-    public bool $autocomplete = true; // Autocomplete attribute for input
+    public bool $autocomplete = true; // Autocomplete attribute for input TODO
     protected ?Output $output = null; // Output element associated with input
     protected ?Datalist $datalist = null; // Datalist element associated with input
     

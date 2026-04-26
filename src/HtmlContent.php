@@ -30,10 +30,10 @@ class HtmlContent {
     /**
      * Add content to the HTML element.
      *
-     * @param object $content The content to add.
+     * @param IRenderableInterface $content The content to add.
      * @return void
      */
-    public function add(object $content): void {
+    public function Add(IRenderableInterface $content): void {
         $this->contents[] = $content;
     }
     
@@ -42,7 +42,7 @@ class HtmlContent {
      *
      * @return int The number of elements in the content array.
      */
-    public function length(): int {
+    public function Length(): int {
         return count($this->contents);
     }
     
@@ -52,14 +52,14 @@ class HtmlContent {
      * @return string The HTML representation of the content.
      */
     public function getHtml(): string {
-        $html = '';
+        $_html = '';
         
-        foreach ($this->contents as $object) {
-            $object->setLevel($this->level + 1);
-            $html .= $object->getHtml();
+        foreach ($this->contents as $_element) {
+            $_element->setLevel($this->level);
+            $_html .= $_element->getHtml();
         }
         
-        return $html;
+        return $_html;
     }
 }
 

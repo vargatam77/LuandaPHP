@@ -9,7 +9,20 @@ namespace TamasVarga\LuandaPHP;
  * Handles escaping and core helpers.
  */
 abstract class Element {
-    
+	/**
+	 * Checks whether a value is considered non-empty.
+	 * Handles null, strings, and arrays.
+	 *
+	 * @param mixed $value
+	 * @return bool
+	 */
+	protected function hasValue(mixed $value): bool {
+		return match(true) {
+			is_array($value) => !empty($value),
+			default          => isset($value) && $value !== null
+		};
+	}
+	
     /**
      * Safely escapes a string for HTML output (Content & Attributes).
      * 
@@ -17,7 +30,7 @@ abstract class Element {
      * @return string
      */
     protected function safeHtml(string $text): string {
-        return htmlspecialchars($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        return htmlspecialchars($text, ENT_QUOTES | ENT_HTML5 | ENT_SUBSTITUTE, 'UTF-8');
     }
 
     /**
@@ -29,8 +42,7 @@ abstract class Element {
      * @return string
      */
     protected function safeUrl(string $url): string {
-        $result = $this->safeHtml($url);
-        return $result;
+        return $this->safeHtml($url);
     }
 }
 

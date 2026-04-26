@@ -5,61 +5,75 @@ namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents an <embed> HTML element.
+ * Void element — takes no children.
  */
 class Embed extends Node {
-    protected string $src;          // URL of the embedded resource
-    protected ?string $mediatype = null; // MIME type of the resource
-    protected ?int $width = null;   // Width in pixels
-    protected ?int $height = null;  // Height in pixels
-
-    /**
-     * Constructor for the Embed element.
-     *
-     * @param string $src The URL of the resource to embed.
-     */
-    public function __construct(string $src) {
-        $this->src = $this->safeUrl($src);
-    }
-
-    /**
-     * Set the MIME type of the embedded resource.
-     *
-     * @param string $type MIME type string.
-     * @return void
-     */
-    public function setMediatype(string $type): void {
-        $this->mediatype = $type;
-    }
-
-    /**
-     * Set the display dimensions.
-     *
-     * @param int $width  Width in pixels.
-     * @param int $height Height in pixels.
-     * @return void
-     */
-    public function setSize(int $width, int $height): void {
-        $this->width  = $width;
-        $this->height = $height;
-    }
-
-    /**
-     * Generate the HTML representation of the <embed> element.
-     *
-     * @return string The HTML representation of the <embed> element.
-     */
-    public function getHtml(): string {
-        $space = str_repeat("\t", $this->level);
-
-        $html = "\n" . $space . '<embed src="' . $this->src . '"'
-            . ($this->mediatype ? ' type="'   . $this->mediatype . '"' : '')
-            . ($this->width     ? ' width="'  . $this->width     . '"' : '')
-            . ($this->height    ? ' height="' . $this->height    . '"' : '')
-            . $this->getAttributes()
-            . ' />';
-
-        return $html;
-    }
+	protected string $src;
+	protected ?string $mediatype = null;
+	protected ?int $width = null;
+	protected ?int $height = null;
+	
+	/**
+	 * Constructor for the Embed element.
+	 *
+	 * @param string $src The URL of the resource to embed.
+	 */
+	public function __construct(string $src) {
+		$this->setSrc($src);
+	}
+	
+	/**
+	 * Sets the URL of the embedded resource.
+	 *
+	 * @param string $src The URL to set.
+	 * @return void
+	 */
+	public function setSrc(string $src): void {
+		$this->src = $this->safeUrl($src);
+	}
+	
+	/**
+	 * Set the MIME type of the embedded resource.
+	 *
+	 * @param string $type MIME type string.
+	 * @return void
+	 */
+	public function setMediatype(string $type): void {
+		$this->mediatype = $type;
+	}
+	
+	/**
+	 * Set the display dimensions.
+	 *
+	 * @param int $width  Width in pixels.
+	 * @param int $height Height in pixels.
+	 * @return void
+	 */
+	public function setSize(int $width, int $height): void {
+		$this->width  = $width;
+		$this->height = $height;
+	}
+	
+	/**
+	 * Generate the HTML representation of the <embed> element.
+	 *
+	 * @return string The HTML representation of the <embed> element.
+	 */
+	public function getHtml(): string {
+		$_indent = str_repeat(indent_type::TAB, $this->level);
+		
+		$_html = special_chars::NEWLINE
+			. $_indent . '<embed'
+			. ' src="' . $this->src . '"'
+			. ($this->hasValue($this->mediatype) ? ' type="'   . $this->mediatype . '"' : '')
+			. ($this->hasValue($this->width)     ? ' width="'  . $this->width     . '"' : '')
+			. ($this->hasValue($this->height)    ? ' height="' . $this->height    . '"' : '')
+			. $this->getClasses()
+			. $this->getAttributes()
+			. $this->getEvents()
+			. ' />';
+			
+		return $_html;
+	}
 }
-
 ?>

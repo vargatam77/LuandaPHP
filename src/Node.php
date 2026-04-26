@@ -6,7 +6,7 @@ namespace TamasVarga\LuandaPHP;
 /**
  * Represents a node in the HTML document.
  */
-class Node extends GlobalAttr {
+abstract class Node extends GlobalAttr implements IRenderableInterface {
     protected ?HtmlContent $content = null;     // Content of the node element
     protected int $level = 0;                   // Indentation level for HTML output
     
@@ -23,10 +23,10 @@ class Node extends GlobalAttr {
     /**
      * Add content to the node element.
      *
-     * @param object $content The content to add.
+     * @param IRenderableInterface $content The content to add.
      * @return void
      */
-    public function addContent(object $content): void {
+    public function addContent(IRenderableInterface  $content): void {
         if (!$this->content) {
             $this->content = new HtmlContent();
         }
@@ -36,15 +36,29 @@ class Node extends GlobalAttr {
     /**
      * Add a cloned content to the node element.
      *
-     * @param object $content The content to clone and add.
+     * @param IRenderableInterface $content The content to clone and add.
      * @return void
      */
-    public function addClone(object $content): void {
+    public function addClone(IRenderableInterface  $content): void {
         if (!$this->content) {
             $this->content = new HtmlContent();
         }
-        $this->content->add(Cloner::getClone($content));
+        $this->content->add(deep_cloner::getClone($content));
     }
+    
+    /**
+     * Output the <div> element directly to the browser.
+     *
+     * @return void
+     */
+    public function Show(): void {
+    	echo $this->getHtml();
+    }
+}
+
+interface IRenderableInterface {
+	public function setLevel(int $level): void;
+	public function getHtml(): string;
 }
 
 ?>

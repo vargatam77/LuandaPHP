@@ -4,21 +4,21 @@ declare(strict_types=1);
 namespace TamasVarga\LuandaPHP;
 
 /**
- * Represents an HTML <cite> element.
+ * Represents an article HTML element.
  */
-class Cite extends Node {
+class Article extends Node {
 	
 	/**
-	 * Constructor for the cite element.
+	 * Constructor for the Article element.
 	 */
 	public function __construct() {
 		
 	}
 	
 	/**
-	 * Generate the HTML representation of the cite element.
+	 * Generate the HTML representation of the article element.
 	 *
-	 * @return string The HTML representation of the cite element.
+	 * @return string The HTML representation of the article element.
 	 */
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level + 1);
@@ -26,14 +26,14 @@ class Cite extends Node {
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
 		$_html = special_chars::NEWLINE
-		. $_indent . '<cite'
+			. $_indent . '<article'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
 			. special_chars::NEWLINE
-			. $_indent . '</cite>';
+			. $_indent . '</article>';
 			
 		return $_html;
 	}
