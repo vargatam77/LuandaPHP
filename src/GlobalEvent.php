@@ -173,131 +173,131 @@ abstract class GlobalEvent extends Element {
  * Constants for animation events.
  */
 class animation_events {
-    public const CANCEL = 'onanimationcancel';
-    public const START = 'onanimationstart';
-    public const ITERATION = 'onanimationiteration';
+    public const CANCEL						= 'onanimationcancel';
+    public const START						= 'onanimationstart';
+    public const ITERATION					= 'onanimationiteration';
 }
 
 /**
  * Class to define constants for various window events.
  */
 class window_events {
-    public const AFTERPRINT = "onafterprint";
-    public const BEFOREPRINT = "onbeforeprint";
-    public const BEFOREUNLOAD = "onbeforeunload";
-    public const ERROR = "onerror";
-    public const HASHCHG = "onhashchange";
-    public const LOAD = "onload";
-    public const MSG = "onmessage";
-    public const MSGERROR = "onmessageerror";
-    public const OFFLINE = "onoffline";
-    public const ONLINE = "ononline";
-    public const HIDE = "onpagehide";
-    public const SHOW = "onpageshow";
-    public const SWAP = "onpageswap";
-    public const REVEAL = "onpagereveal";
-    public const POPSTATE = "onpopstate";
-    public const LANGCHG = "onlanguagechange";
-    public const RESIZE = "onresize";
-    public const STORAGE = "onstorage";
-    public const UNLOAD = "onunload";
-    public const REJHANDLED = "onrejectionhandled";
-    public const UNHANDLEDREJ = "onunhandledrejection";
-    public const SCROLL = "onscroll";
-    public const SCROLLEND = "onscrollend";
+    public const AFTERPRINT					= "onafterprint";
+    public const BEFOREPRINT				= "onbeforeprint";
+    public const BEFOREUNLOAD				= "onbeforeunload";
+    public const ERROR						= "onerror";
+    public const HASHCHG					= "onhashchange";
+    public const LOAD						= "onload";
+    public const MSG						= "onmessage";
+    public const MSGERROR					= "onmessageerror";
+    public const OFFLINE					= "onoffline";
+    public const ONLINE						= "ononline";
+    public const HIDE						= "onpagehide";
+    public const SHOW						= "onpageshow";
+    public const SWAP						= "onpageswap";
+    public const REVEAL						= "onpagereveal";
+    public const POPSTATE					= "onpopstate";
+    public const LANGCHG					= "onlanguagechange";
+    public const RESIZE						= "onresize";
+    public const STORAGE					= "onstorage";
+    public const UNLOAD						= "onunload";
+    public const REJHANDLED					= "onrejectionhandled";
+    public const UNHANDLEDREJ				= "onunhandledrejection";
+    public const SCROLL						= "onscroll";
+    public const SCROLLEND					= "onscrollend";
 }
 
 /**
  * Class to define constants for various form events.
  */
 class form_events {
-    public const BLUR = "onblur";
-    public const CHANGE = "onchange";
-    public const CONTEXT = "oncontextmenu";
-    public const FOCUS = "onfocus";
-    public const INPUT = "oninput";
-    public const BEFOREINPUT = "onbeforeinput";
-    public const INVALID = "oninvalid";
-    public const RESET = "onreset";
-    public const FORMDATA = "onformdata";
-    public const SEARCH = "onsearch";
-    public const SELECT = "onselect";
-    public const SUBMIT = "onsubmit";
+    public const BLUR						= "onblur";
+    public const CHANGE						= "onchange";
+    public const CONTEXT					= "oncontextmenu";
+    public const FOCUS						= "onfocus";
+    public const INPUT						= "oninput";
+    public const BEFOREINPUT				= "onbeforeinput";
+    public const INVALID					= "oninvalid";
+    public const RESET						= "onreset";
+    public const FORMDATA					= "onformdata";
+    public const SEARCH						= "onsearch";
+    public const SELECT						= "onselect";
+    public const SUBMIT						= "onsubmit";
 }
 
 /**
  * Class to define constants for various keyboard events.
  */
 class keyboard_events {
-    public const DOWN = "onkeydown";
-    public const PRESS = "onkeypress";
-    public const UP = "onkeyup";
+    public const DOWN						= "onkeydown";
+    public const PRESS						= "onkeypress";
+    public const UP							= "onkeyup";
 }
 
 /**
  * Class to define constants for various mouse events.
  */
 class mouse_events {
-    public const CLICK = "onclick";
-    public const DBLCLICK = "ondblclick";
-    public const BTNDOWN = "onmousedown";
-    public const MOVE = "onmousemove";
-    public const OUT = "onmouseout";
-    public const OVER = "onmouseover";
-    public const BTNUP = "onmouseup";
-    public const ENTER = "onmouseenter";
-    public const LEAVE = "onmouseleave";
-    public const AUXCLICK = "onauxclick";
-    public const WHEEL = "onwheel";
-    public const MOUSEWHEEL = "onmousewheel"; // Deprecated
+    public const CLICK						= "onclick";
+    public const DBLCLICK					= "ondblclick";
+    public const BTNDOWN					= "onmousedown";
+    public const MOVE						= "onmousemove";
+    public const OUT						= "onmouseout";
+    public const OVER						= "onmouseover";
+    public const BTNUP						= "onmouseup";
+    public const ENTER						= "onmouseenter";
+    public const LEAVE						= "onmouseleave";
+    public const AUXCLICK					= "onauxclick";
+    public const WHEEL						= "onwheel";
+    public const MOUSEWHEEL					= "onmousewheel"; // Deprecated
 }
 
 /**
  * Class to define constants for pointer events.
  */
 class pointer_events {
-    public const OVER = "onpointerover";
-    public const ENTER = "onpointerenter";
-    public const DOWN = "onpointerdown";
-    public const MOVE = "onpointermove";
-    public const UP = "onpointerup";
-    public const CANCEL = "onpointercancel";
-    public const OUT = "onpointerout";
-    public const LEAVE = "onpointerleave";
-    public const GOTCAPTURE = "ongotpointercapture";
-    public const LOSTCAPTURE = "onlostpointercapture";
+    public const OVER						= "onpointerover";
+    public const ENTER						= "onpointerenter";
+    public const DOWN						= "onpointerdown";
+    public const MOVE						= "onpointermove";
+    public const UP							= "onpointerup";
+    public const CANCEL						= "onpointercancel";
+    public const OUT						= "onpointerout";
+    public const LEAVE						= "onpointerleave";
+    public const GOTCAPTURE					= "ongotpointercapture";
+    public const LOSTCAPTURE				= "onlostpointercapture";
 }
 
 /**
  * Class to define constants for touch events.
  */
 class touch_events {
-    public const START = "ontouchstart";
-    public const END = "ontouchend";
-    public const MOVE = "ontouchmove";
-    public const CANCEL = "ontouchcancel";
+    public const START						= "ontouchstart";
+    public const END						= "ontouchend";
+    public const MOVE						= "ontouchmove";
+    public const CANCEL						= "ontouchcancel";
 }
 
 /**
  * Class to define constants for various drag events.
  */
 class drag_events {
-    public const DRAG = "ondrag";
-    public const END = "ondragend";
-    public const ENTER = "ondragenter";
-    public const LEAVE = "ondragleave";
-    public const OVER = "ondragover";
-    public const START = "ondragstart";
-    public const DROP = "ondrop";
+    public const DRAG						= "ondrag";
+    public const END						= "ondragend";
+    public const ENTER						= "ondragenter";
+    public const LEAVE						= "ondragleave";
+    public const OVER						= "ondragover";
+    public const START						= "ondragstart";
+    public const DROP						= "ondrop";
 }
 
 /**
  * Class to define constants for various clipboard events.
  */
 class clipbrd_events {
-    public const COPY = "oncopy";
-    public const CUT = "oncut";
-    public const PASTE = "onpaste";
+    public const COPY						= "oncopy";
+    public const CUT						= "oncut";
+    public const PASTE						= "onpaste";
 }
 
 /**
