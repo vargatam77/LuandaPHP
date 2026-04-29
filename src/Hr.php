@@ -34,4 +34,5 @@ class Hr extends Node {
 		return $_html;
 	}
 }
+
 ?>

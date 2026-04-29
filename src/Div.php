@@ -21,17 +21,19 @@ class Div extends Node {
      * @return string The HTML representation of the <div> element.
      */
     public function getHtml(): string {
-        $this->content?->setLevel($this->level + 1);
+        $this->content?->setLevel($this->level);
         
         $_indent = str_repeat(indent_type::TAB, $this->level);
         
-        $_html = special_chars::NEWLINE . $_indent . '<div'
+        $_html = special_chars::NEWLINE
+        	. $_indent . '<div'
         	. $this->getClasses()
         	. $this->getAttributes()
         	. $this->getEvents()
             . '>'
             . $this->content?->getHtml()
-            . special_chars::NEWLINE . $_indent . '</div>';
+            . special_chars::NEWLINE
+        	. $_indent . '</div>';
                 
         return $_html;
     }

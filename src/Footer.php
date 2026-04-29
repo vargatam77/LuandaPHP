@@ -21,12 +21,12 @@ class Footer extends Node {
 	 * @return string The HTML representation of the <footer> element.
 	 */
 	public function getHtml(): string {
-		$this->content?->setLevel($this->level + 1);
+		$this->content?->setLevel($this->level);
 		
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
 		$_html = special_chars::NEWLINE
-		. $_indent . '<footer'
+			. $_indent . '<footer'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
@@ -38,4 +38,5 @@ class Footer extends Node {
 		return $_html;
 	}
 }
+
 ?>

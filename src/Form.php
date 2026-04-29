@@ -13,7 +13,7 @@ class Form extends Node {
 	protected ?string $target			= null;
 	protected ?string $encType			= null;
 	protected ?bool $noValidate			= null;
-	protected array $autoComplete		= [];
+	protected array $autocompletes		= [];
 	protected array $charsets			= [];
 	
 	/**
@@ -81,11 +81,12 @@ class Form extends Node {
 	 * Add a charset to the list of accepted charsets for form submission.
 	 * Duplicates are ignored.
 	 *
-	 * @param string $charset The charset to add.
+	 * @param string $charsets The charset to add.
 	 * @return void
 	 */
 	public function addCharset(string $charset): void {
-		$this->charSets[$charset] = $charset;	//TODO multiple addition
+		foreach (explode(' ', $charset) as $_charset)
+			$this->charsets[$_charset] = $_charset;
 	}
 	
 	/**
@@ -95,8 +96,9 @@ class Form extends Node {
 	 * or custom value
 	 * @return void
 	 */
-	public function addAutocomplete(string $autocomplete): void {
-		$this->autoComplete[$autocomplete] = $autocomplete; //TODO multiple addition
+	public function addAutocompletes(string $autocompletes): void {
+		foreach (explode(' ', $autocompletes) as $_autocomplete)
+			$this->autocompletes[$_autocomplete] = $_autocomplete;
 	}
 	
 	/**
@@ -114,20 +116,20 @@ class Form extends Node {
 	 * @return string The HTML string representing the form.
 	 */
 	public function getHtml(): string {
-		$this->content?->setLevel($this->level + 1);
+		$this->content?->setLevel($this->level);
 		
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
 		$_html = special_chars::NEWLINE
 			. $_indent . '<form'
-			. ($this->hasValue($this->url)			? ' action="' . $this->url . '"'									: '')
-			. ($this->hasValue($this->method)		? ' method="' . $this->method . '"'									: '')
-			. ($this->hasValue($this->encType)		? ' enctype="' . $this->encType . '"'								: '')
-			. ($this->hasValue($this->target)		? ' target="' . $this->target . '"'									: '')
-			. ($this->hasValue($this->rel)			? ' rel="' . $this->rel . '"'										: '')
-			. ($this->hasValue($this->noValidate)	? ' novalidate="novalidate"'										: '')
-			. ($this->hasValue($this->autoComplete)	? ' autocomplete="' . implode(' ', $this->autocomplete) . '"'		: '')
-			. ($this->hasValue($this->charsets)		? ' accept-charset="' . implode(' ', $this->charsets) . '"'			: '')
+			. ($this->hasValue($this->url)				? ' action="' . $this->url . '"'									: '')
+			. ($this->hasValue($this->method)			? ' method="' . $this->method . '"'									: '')
+			. ($this->hasValue($this->encType)			? ' enctype="' . $this->encType . '"'								: '')
+			. ($this->hasValue($this->target)			? ' target="' . $this->target . '"'									: '')
+			. ($this->hasValue($this->rel)				? ' rel="' . $this->rel . '"'										: '')
+			. ($this->hasValue($this->noValidate)		? ' novalidate="novalidate"'										: '')
+			. ($this->hasValue($this->autocompletes)	? ' autocomplete="' . implode(' ', $this->autocompletes) . '"'		: '')
+			. ($this->hasValue($this->charsets)			? ' accept-charset="' . implode(' ', $this->charsets) . '"'			: '')
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
@@ -139,3 +141,5 @@ class Form extends Node {
 		return $_html;
 	}
 }
+
+?>

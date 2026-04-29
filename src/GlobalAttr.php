@@ -92,7 +92,7 @@ abstract class GlobalAttr extends GlobalEvent {
      *
      * @return void
      */
-    public function setFocus(): void {
+    public function setAutoFocus(): void {
         $this->autofocus = true;
     }
 
@@ -101,12 +101,12 @@ abstract class GlobalAttr extends GlobalEvent {
      *
      * @return void
      */
-    public function Inert(): void {
+    public function setInert(): void {
         $this->inert = true;
     }
     
     /**
-     *Disables the element
+     * Disables the element
      *
      * @return void
      */
@@ -194,21 +194,12 @@ abstract class GlobalAttr extends GlobalEvent {
     /**
      * Adds a CSS class to the element.
      *
-     * @param string $class The class to add.
+     * @param string $classes The class to add.
      * @return void
      */
     public function addClass(string $classes): void {
     	foreach (explode(' ', $classes) as $_class)
     		$this->classes[$_class] = $_class;
-    }
-    
-    /**
-     * Gets the CSS classes as a space-separated string.
-     *
-     * @return string The classes as a single string.
-     */
-    public function getClasses(): string {
-        return $this->hasValue($this->classes) ? ' class="' . implode(' ', $this->classes) . '"' : '';
     }
     
     /**
@@ -250,6 +241,15 @@ abstract class GlobalAttr extends GlobalEvent {
     public function setPopover(string $state): void {
         $this->popover = $state;
     }
+     
+    /**
+     * Gets the CSS classes as a space-separated string.
+     *
+     * @return string The class attribute as a single string.
+     */
+    public function getClasses(): string {
+    	return $this->hasValue($this->classes) ? ' class="' . implode(' ', $this->classes) . '"' : '';
+    }
     
     /**
      * Gets all attributes as a string for HTML.
@@ -265,7 +265,7 @@ abstract class GlobalAttr extends GlobalEvent {
 	        . ($this->hasValue($this->tabindex)			? ' tabindex="' . $this->tabindex . '"'			: '')
 	        . ($this->hasValue($this->accesskey)		? ' accesskey="' . $this->accesskey . '"'		: '')
 	        . ($this->hasValue($this->draggable)		? ' draggable="true"'							: '')
-	        . ($this->hasValue($this->disabled)			? ' disabled="disabled"'								: '')
+	        . ($this->hasValue($this->disabled)			? ' disabled="disabled"'						: '')
 	        . ($this->hasValue($this->inert)			? ' inert="inert"'								: '')
 	        . ($this->hasValue($this->contenteditable)	? ' contenteditable="true"'						: '')
 	        . ($this->hasValue($this->lang)				? ' lang="' . $this->lang . '"'					: '')
@@ -307,24 +307,38 @@ class popover {
 //--------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Class to define constants for link target values.
- */
-class link_target {
-    public const NEWPAGE		= "_blank";
-    public const SAMEPAGE		= "_self";
-    public const PARENTPAGE		= "_parent";
-    public const TOP			= "_top";
-}
-
-//--------------------------------------------------------------------------------------------------------------------------------
-
-/**
  * Class to define constants for text direction values.
  */
 class text_direction {
     public const LEFT			= "ltr";
     public const RIGHT			= "rtl";
     public const AUTO			= "auto";
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Class to define bitmask constants for inline text formatting.
+ */
+class text_format {
+	public const STRONG		= 1 << 0;	// <strong> important text
+	public const EM			= 1 << 1;	// <em> emphasis
+	public const MARK		= 1 << 2;	// <mark> highlighted
+	public const B			= 1 << 3;	// <b> stylistic bold
+	public const I			= 1 << 4;	// <i> stylistic italic
+	public const U			= 1 << 5;	// <u> underline annotation
+	public const S			= 1 << 6;	// <s> strikethrough
+	public const DEL		= 1 << 7;	// <del> deleted text
+	public const INS		= 1 << 8;	// <ins> inserted text
+	public const SMALL		= 1 << 9;	// <small> side comment
+	public const SUB		= 1 << 10;	// <sub> subscript
+	public const SUP		= 1 << 11;	// <sup> superscript
+	public const KBD		= 1 << 12;	// <kbd> keyboard input
+	public const SAMP		= 1 << 13;	// <samp> sample output
+	public const VAR		= 1 << 14;	// <var> variable
+	public const DFN		= 1 << 15;	// <dfn> definition term
+	public const Q			= 1 << 16;	// <q> inline quotation
+	public const CODE		= 1 << 17;	// <code> inline code
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -460,6 +474,8 @@ class script_type {
     public const RUNCMD			= 2;
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------
+
 /**
  * Class to define constants for textarea wrap mode values.
  */
@@ -467,6 +483,8 @@ class textarea_wrapmode {
     public const SOFT			= "soft";
     public const HARD			= "hard";
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * Class to define constants for list style values.
@@ -477,6 +495,8 @@ class list_style {
     public const DESCRIPTION	= 'dl';
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------
+
 /**
  * Class to define constants for listitem types.
  */
@@ -485,6 +505,8 @@ class listitem_type {
     public const TERM			= 'dt';
     public const DATA			= 'dd';
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * Class to define constants for indentation type values.
@@ -495,6 +517,8 @@ class indent_type {
     public const DBLSPACE		= self::SPACE . self::SPACE;
     public const QUADSPACE		= self::DBLSPACE . self::DBLSPACE;
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * Class to define commonly used Unicode characters for safe text rendering.
@@ -531,6 +555,8 @@ class special_chars {
     public const DEGREE			= "\u{00B0}"; // °
     public const PLUS_MINUS		= "\u{00B1}"; // ±
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * Utility class to clone objects.

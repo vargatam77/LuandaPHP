@@ -6,7 +6,7 @@ namespace TamasVarga\LuandaPHP;
 /**
  * Represents a node in the HTML document.
  */
-abstract class Node extends GlobalAttr implements IRenderableInterface {
+abstract class Node extends GlobalAttr implements INodeInterface {
     protected ?HtmlContent $content = null;     // Content of the node element
     protected int $level = 0;                   // Indentation level for HTML output
     
@@ -23,27 +23,27 @@ abstract class Node extends GlobalAttr implements IRenderableInterface {
     /**
      * Add content to the node element.
      *
-     * @param IRenderableInterface $content The content to add.
+     * @param INodeInterface $content The content to add.
      * @return void
      */
-    public function addContent(IRenderableInterface  $content): void {
-        if (!$this->content) {
+    public function addContent(INodeInterface  $content): void {
+        if (!$this->content)
             $this->content = new HtmlContent();
-        }
-        $this->content->add($content);
+        
+        $this->content->Add($content);
     }
     
     /**
      * Add a cloned content to the node element.
      *
-     * @param IRenderableInterface $content The content to clone and add.
+     * @param INodeInterface $content The content to clone and add.
      * @return void
      */
-    public function addClone(IRenderableInterface  $content): void {
-        if (!$this->content) {
+    public function addClone(INodeInterface  $content): void {
+        if (!$this->content)
             $this->content = new HtmlContent();
-        }
-        $this->content->add(deep_cloner::getClone($content));
+        
+        $this->content->Add(deep_cloner::getClone($content));
     }
     
     /**
@@ -56,7 +56,7 @@ abstract class Node extends GlobalAttr implements IRenderableInterface {
     }
 }
 
-interface IRenderableInterface {
+interface INodeInterface {
 	public function setLevel(int $level): void;
 	public function getHtml(): string;
 }

@@ -15,7 +15,7 @@ class IncidentReporter {
      * Always true if the class is available in this namespace.
      */
     public static function isAvailable(): bool {
-        return true;
+        return debug_state::ON;
     }
     
     /**
@@ -47,18 +47,11 @@ class IncidentReporter {
      * Appends to the file if it already exists.
      *
      * @param string $filePath Destination file path
-     * @throws \RuntimeException If the file cannot be written
      */
     public static function writeToFile(string $filePath): void {
-        if (empty(self::$storage)) {
-            return;
-        }
-        
-        $content = implode(PHP_EOL, self::$storage) . PHP_EOL;
-        
-        if (file_put_contents($filePath, $content, FILE_APPEND | LOCK_EX) === false) {
-            self::report('IncidentReporter', 'Failed to write log to file: ' . $filePath);
-        }
+		if (!empty(self::$storage))
+			if (file_put_contents($filePath,implode(PHP_EOL, self::$storage) . PHP_EOL, FILE_APPEND | LOCK_EX) === false)
+				self::report('IncidentReporter', 'Failed to write log to file: ' . $filePath);
     }
     
     /**
@@ -69,18 +62,18 @@ class IncidentReporter {
      * @return string Full HTML document
      */
     public static function toHtml(string $title = 'Incident Report'): string {
-        $escapedTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
-        $generatedAt  = htmlspecialchars(date('Y-m-d H:i:s'), ENT_QUOTES, 'UTF-8');
+        $_escapedTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+        $_generatedAt  = htmlspecialchars(date('Y-m-d H:i:s'), ENT_QUOTES, 'UTF-8');
         
-        $rows = '';
-        foreach (self::$storage as $index => $entry) {
-            $escaped = htmlspecialchars($entry, ENT_QUOTES, 'UTF-8');
-            $rowClass = $index % 2 === 0 ? 'even' : 'odd';
-            $rows .= "            <tr class=\"{$rowClass}\"><td>" . ($index + 1) . "</td><td>{$escaped}</td></tr>\n";
+        $_rows = '';
+        foreach (self::$storage as $_index => $_entry) {
+            $_escaped = htmlspecialchars($_entry, ENT_QUOTES, 'UTF-8');
+            $_rowClass = $_index % 2 === 0 ? 'even' : 'odd';
+            $_rows .= "            <tr class=\"{$_rowClass}\"><td>" . ($_index + 1) . "</td><td>{$_escaped}</td></tr>\n";
         }
         
-        if ($rows === '') {
-            $rows = '            <tr><td colspan="2"><em>No incidents recorded.</em></td></tr>' . "\n";
+        if ($_rows === '') {
+            $_rows = '            <tr><td colspan="2"><em>No incidents recorded.</em></td></tr>' . "\n";
         }
         
         return <<<HTML
@@ -89,7 +82,7 @@ class IncidentReporter {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>{$escapedTitle}</title>
+            <title>{$_escapedTitle}</title>
             <style>
                 body { font-family: monospace; background: #1e1e1e; color: #d4d4d4; padding: 2rem; }
                 h1   { color: #ce9178; margin-bottom: 0.25rem; }
@@ -103,18 +96,23 @@ class IncidentReporter {
             </style>
         </head>
         <body>
-            <h1>{$escapedTitle}</h1>
-            <p class="meta">Generated at: {$generatedAt} &mdash; Total entries: {$entry->Count}</p>
+            <h1>{$_escapedTitle}</h1>
+            <p class="meta">Generated at: {$_generatedAt}</p>
             <table>
                 <thead><tr><th>#</th><th>Log Entry</th></tr></thead>
                 <tbody>
-                    {$rows}
+                    {$_rows}
                 </tbody>
             </table>
         </body>
         </html>
         HTML;
     }
+}
+
+class debug_state {
+	public const ON = true;
+	public const OFF = false;
 }
 
 ?>

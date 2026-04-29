@@ -18,8 +18,9 @@ class Embed extends Node {
 	 *
 	 * @param string $src The URL of the resource to embed.
 	 */
-	public function __construct(string $src) {
-		$this->setSrc($src);
+	public function __construct(?string $src = null) {
+		if($this->hasValue($src))
+			$this->setSrc($src);
 	}
 	
 	/**
@@ -64,7 +65,7 @@ class Embed extends Node {
 		
 		$_html = special_chars::NEWLINE
 			. $_indent . '<embed'
-			. ' src="' . $this->src . '"'
+			. ($this->hasValue($this->src)			? ' src="' . $this->src . '"'			: '')
 			. ($this->hasValue($this->mediatype)	? ' type="' . $this->mediatype . '"'	: '')
 			. ($this->hasValue($this->width)		? ' width="' . $this->width . '"'		: '')
 			. ($this->hasValue($this->height)		? ' height="' . $this->height . '"'		: '')

@@ -9,7 +9,6 @@ namespace TamasVarga\LuandaPHP;
 class Option extends Node {
     protected ?string $value		= null;    // Value attribute
     protected ?string $label		= null;    // Label attribute
-    protected ?bool $disabled		= null;   // Disabled flag
     protected ?bool $selected		= null;   // Selected flag
 
     /**

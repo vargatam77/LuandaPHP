@@ -30,10 +30,10 @@ class HtmlContent {
     /**
      * Add content to the HTML element.
      *
-     * @param IRenderableInterface $content The content to add.
+     * @param INodeInterface $content The content to add.
      * @return void
      */
-    public function Add(IRenderableInterface $content): void {
+    public function Add(INodeInterface $content): void {
         $this->contents[] = $content;
     }
     
@@ -55,7 +55,7 @@ class HtmlContent {
         $_html = '';
         
         foreach ($this->contents as $_element) {
-            $_element->setLevel($this->level);
+            $_element->setLevel($this->level + 1);
             $_html .= $_element->getHtml();
         }
         

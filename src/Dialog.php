@@ -33,12 +33,12 @@ class Dialog extends Node {
 	 * @return string The HTML representation of the <dialog> element.
 	 */
 	public function getHtml(): string {
-		$this->content?->setLevel($this->level + 1);
+		$this->content?->setLevel($this->level);
 		
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
 		$_html = special_chars::NEWLINE
-		. $_indent . '<dialog'
+			. $_indent . '<dialog'
 			. ($this->open ? ' open="open"' : '')
 			. $this->getClasses()
 			. $this->getAttributes()

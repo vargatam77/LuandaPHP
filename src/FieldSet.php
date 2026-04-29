@@ -8,35 +8,22 @@ namespace TamasVarga\LuandaPHP;
  */
 class FieldSet extends Node {
 	protected ?string $parent = null;
-	protected ?Legend $legend = null;
 	
 	/**
 	 * Constructor for the FieldSet element.
-	 *
-	 * @param Legend $legend The legend element.
 	 */
-	public function __construct(Legend $legend) {
-		$this->legend = $legend;
+	public function __construct() {
+		
 	}
 	
 	/**
 	 * Associate this fieldset with a form by its ID.
 	 *
-	 * @param string $formId The ID of the parent form.
+	 * @param string $formid The ID of the parent form.
 	 * @return void
 	 */
-	public function setParent(string $formId): void {
-		$this->parent = $formId;
-	}
-	
-	/**
-	 * Set a Legend element explicitly.
-	 *
-	 * @param Legend $legend The legend element.
-	 * @return void
-	 */
-	public function setLegend(Legend $legend): void {
-		$this->legend = $legend;
+	public function setParent(string $formid): void {
+		$this->parent = $formid;
 	}
 	
 	/**
@@ -47,8 +34,7 @@ class FieldSet extends Node {
 	 * @return string The HTML representation of the <fieldset> element.
 	 */
 	public function getHtml(): string {
-		$this->content?->setLevel($this->level + 1);
-		$this->legend?->setLevel($this->level + 1);
+		$this->content?->setLevel($this->level);
 		
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
@@ -59,7 +45,6 @@ class FieldSet extends Node {
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
-			. $this->legend?->getHtml()
 			. $this->content?->getHtml()
 			. special_chars::NEWLINE
 			. $_indent . '</fieldset>';

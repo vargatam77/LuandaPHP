@@ -21,7 +21,7 @@ class Aside extends Node {
 	 * @return string The HTML representation of the aside element.
 	 */
 	public function getHtml(): string {
-		$this->content?->setLevel($this->level + 1);
+		$this->content?->setLevel($this->level);
 		
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		

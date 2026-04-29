@@ -61,4 +61,5 @@ class Comment extends Element {
 		return $_html;
 	}
 }
+
 ?>

@@ -8,15 +8,12 @@ namespace TamasVarga\LuandaPHP;
  */
 class Details extends Node {
 	protected bool $open = false;
-	protected ?Summary $summary = null;
 	
 	/**
 	 * Constructor for the Details element.
-	 *
-	 * @param string|null $summaryText Optional visible label text.
 	 */
-	public function __construct(Summary $summary) {
-		$this->summary = $summary;
+	public function __construct() {
+		
 	}
 	
 	/**
@@ -29,23 +26,12 @@ class Details extends Node {
 	}
 	
 	/**
-	 * Set a Summary element explicitly.
-	 *
-	 * @param Summary $summary The summary element.
-	 * @return void
-	 */
-	public function setSummary(Summary $summary): void {
-		$this->summary = $summary;
-	}
-	
-	/**
 	 * Generate the HTML representation of the <details> element.
 	 *
 	 * @return string The HTML representation of the <details> element.
 	 */
 	public function getHtml(): string {
-		$this->content?->setLevel($this->level + 1);
-		$this->summary?->setLevel($this->level + 1);
+		$this->content?->setLevel($this->level);
 		
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
@@ -56,7 +42,6 @@ class Details extends Node {
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
-			. $this->summary?->getHtml()
 			. $this->content?->getHtml()
 			. special_chars::NEWLINE
 			. $_indent . '</details>';
