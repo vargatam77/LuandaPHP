@@ -33,6 +33,20 @@ class EncodedImg {
 	}
 	
 	/**
+	 * Load the image from an svg and convert to Base64.
+	 *
+	 * @param Svg|string $svg An Svg object or string containing svg code
+	 * @return void
+	 */
+	public function createFromSvg(Svg|string $svg): string {
+		if (gettype($svg) === Svg::class)
+			$svg = $svg->getXml();
+		
+		$_mime = 'image/svg+xml';
+		return $this->encodeBase64($svg, $_mime);
+	}
+	
+	/**
 	 * Loads a local file and converts it to a Base64 Data URI.
 	 * If no source is set or the file does not exist, a default
 	 * no-image placeholder SVG is generated and encoded instead.

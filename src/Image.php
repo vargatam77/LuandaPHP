@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace TamasVarga\LuandaPHP;
 
 use TamasVarga\LuandaPHP\Misc\EncodedImg;
+use TamasVarga\LuandaPHP\Misc\Svg;
 
 /**
  * Represents an HTML image element.
@@ -71,6 +72,17 @@ class Image extends Node {
 	}
 	
 	/**
+	 * Load the image from an svg and convert to Base64.
+	 *
+	 * @param Svg|string $svg An Svg object or string containing svg code
+	 * @return void
+	 */
+	public function loadSvgBase64(Svg|string $svg): void {
+		$_encoder = new EncodedImg();
+		$this->url = $_encoder->createFromSvg($svg);
+	}
+	
+	/**
 	 * Generate HTML representation of the image element.
 	 * If no URL is set or the URL points to a local path that does not exist,
 	 * a default no-image placeholder is loaded via loadBase64().
@@ -80,7 +92,7 @@ class Image extends Node {
 	public function getHtml(): string {
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
-		if (!$this->hasValue($this->url) || !file_exists($this->url))
+		if (!$this->hasValue($this->url) || (!file_exists($this->url) && !str_contains($this->url, 'base64')))
 			$this->loadBase64();
 			
 		$_html = special_chars::NEWLINE

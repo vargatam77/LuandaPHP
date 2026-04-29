@@ -79,7 +79,7 @@ class Meta extends Element {
 	 *
 	 * @return string The HTML representation
 	 */
-	public function getMeta(): string {
+	public function getHtml(): string {
 		$_indent = str_repeat(indent_type::TAB, $this->level);
 		
 		$_html = special_chars::NEWLINE

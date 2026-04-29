@@ -185,7 +185,6 @@ class Bdi extends Node {
  * Represents a <bdo> HTML element for bidirectional text override.
  */
 class Bdo extends Node {
-	protected string $dir = text_direction::LEFT;	// Text direction, use text_direction constants
 	
 	/**
 	 * Constructor for the Bdo element.
