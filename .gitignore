@@ -11,6 +11,18 @@
 *.tmp
 *.bak
 
+# Invalid files
+*-old.*
+*-new.*
+*-test.*
+
+# Configuaration files
+.env
+.ENV
+*.ini
+*.cfg
+*.conf
+
 # Log files
 *.log
 
