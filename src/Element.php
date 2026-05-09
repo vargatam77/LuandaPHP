@@ -105,4 +105,55 @@ abstract class Element {
 	}
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Class to define constants for indentation type values.
+ */
+class indent_type {
+	public const NONE			= "";
+	public const TAB			= "\u{0009}";
+	public const SPACE			= "\u{0020}";
+	public const DBLSPACE		= self::SPACE . self::SPACE;
+	public const QUADSPACE		= self::DBLSPACE . self::DBLSPACE;
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Class to define commonly used Unicode characters for safe text rendering.
+ */
+class special_chars {
+	// --- Newline ---
+	public const NEWLINE		= "\u{000A}";
+	
+	// --- Whitespace ---
+	public const NBSP			= "\u{00A0}"; // non-breaking space
+	public const THIN_SPACE		= "\u{2009}"; // thin space
+	public const HAIR_SPACE		= "\u{200A}"; // very thin space
+	public const ZWSP			= "\u{200B}"; // zero-width space (line break hint)
+	
+	// --- Dashes ---
+	public const NDASH			= "\u{2013}"; // –
+	public const MDASH			= "\u{2014}"; // —
+	
+	// --- Ellipsis ---
+	public const HELLIP			= "\u{2026}"; // …
+	
+	// --- Quotes ---
+	public const LQUOTE			= "\u{201C}"; // “
+	public const RQUOTE			= "\u{201D}"; // ”
+	public const LSQUOTE		= "\u{2018}"; // ‘
+	public const RSQUOTE		= "\u{2019}"; // ’
+	
+	// --- Common symbols ---
+	public const COPY			= "\u{00A9}"; // ©
+	public const REG			= "\u{00AE}"; // ®
+	public const TRADE			= "\u{2122}"; // ™
+	
+	// --- Optional useful extras ---
+	public const DEGREE			= "\u{00B0}"; // °
+	public const PLUS_MINUS		= "\u{00B1}"; // ±
+}
+
 ?>
