@@ -80,9 +80,9 @@ class Meta extends Element {
 	 * @return string The HTML representation
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<meta'
 			. ($this->hasValue($this->name)			? ' name="' . $this->name . '"'									: '')
 			. ($this->hasValue($this->charset)		? ' charset="' . $this->charset . '"'							: '')

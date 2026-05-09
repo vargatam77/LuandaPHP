@@ -24,16 +24,16 @@ class Template extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<template'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. self::$newlineString
+			. Element::getNewlineString()
 			. $_indent . '</template>';
 			
 		return $_html;

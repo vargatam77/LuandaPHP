@@ -23,16 +23,16 @@ class Summary extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level + 1);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<summary'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. self::$newlineString
+			. Element::getNewlineString()
 			. $_indent . '</summary>';
 			
 		return $_html;

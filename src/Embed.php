@@ -61,9 +61,9 @@ class Embed extends Node {
 	 * @return string The HTML representation of the <embed> element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<embed'
 			. ($this->hasValue($this->src)			? ' src="' . $this->src . '"'			: '')
 			. ($this->hasValue($this->mediatype)	? ' type="' . $this->mediatype . '"'	: '')

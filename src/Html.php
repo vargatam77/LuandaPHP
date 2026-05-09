@@ -200,12 +200,12 @@ class Html extends Element {
 	 */
 	public function Show(): void {
 		echo '<!DOCTYPE html>';
-		echo self::$newlineString . '<html xmlns="' . $this->xmlns . '" lang="' . $this->lang . '">';
+		echo Element::getNewlineString() . '<html xmlns="' . $this->xmlns . '" lang="' . $this->lang . '">';
 		
 		if ($this->hasValue($this->head)) $this->head->Show();
 		if ($this->hasValue($this->body)) $this->body->Show();
 		
-		echo self::$newlineString . '</html>';
+		echo Element::getNewlineString() . '</html>';
 	}
 }
 
@@ -308,9 +308,9 @@ class Head extends Element {
 	 * @return string The HTML representation of the head element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<head>'
 			. ($this->hasValue($this->base) ? $this->base->getHtml() : '')
 			. $this->title->getHtml();
@@ -330,7 +330,7 @@ class Head extends Element {
 			$_html .= $_script->getHtml();
 		}
 		
-		$_html .= self::$newlineString
+		$_html .= Element::getNewlineString()
 			. $_indent . '</head>';
 		
 		return $_html;
@@ -382,9 +382,9 @@ class Body extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 		. $_indent . '<body'
 			. $this->getClasses()
 			. $this->getAttributes()
@@ -402,7 +402,7 @@ class Body extends Node {
 				$_html .= $_script->runScript();
 			}
 			
-			$_html .= self::$newlineString
+			$_html .= Element::getNewlineString()
 				. $_indent . '</body>';
 			
 			return $_html;
@@ -433,9 +433,9 @@ class Title extends Element {
 	 * @return string The HTML representation of the title element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<title>'
 			. $this->text
 			. '</title>';
@@ -487,9 +487,9 @@ class Base extends Element {
 	 * @return string The HTML representation of the base element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<base'
 			. ($this->hasValue($this->url)		? ' href="'		. $this->url	. '"' : '')
 			. ($this->hasValue($this->target)	? ' target="'	. $this->target	. '"' : '')

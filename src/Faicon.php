@@ -70,14 +70,14 @@ class Faicon extends Node {
 	 * @return string The HTML representation of the icon.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
 		$this->addClass($this->type . ' ' . 'fa-' . $this->icon
 			. ($this->hasValue($this->rotation)		? ' ' . $this->rotation		: '')
 			. ($this->hasValue($this->anim)			? ' ' . $this->anim			: '')
 			. ($this->hasValue($this->size)			? ' ' . $this->size			: ''));
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<i'
 			. $this->getClasses()
 			. $this->getAttributes()

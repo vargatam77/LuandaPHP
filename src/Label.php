@@ -45,9 +45,9 @@ class Label extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 		. $_indent . '<label'
 			. ($this->hasValue($this->parent)	? ' form="' . $this->parent . '"'	: '')
 			. ($this->hasValue($this->input)	? ' for="' . $this->input . '"'		: '')
@@ -56,7 +56,7 @@ class Label extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. self::$newlineString
+			. Element::getNewlineString()
 			. $_indent . '</label>';
 			
 		return $_html;

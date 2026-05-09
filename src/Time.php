@@ -37,9 +37,9 @@ class Time extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<time'
 			. ($this->hasValue($this->datetime)	? ' datetime="' . $this->datetime . '"' : '')
 			. $this->getClasses()

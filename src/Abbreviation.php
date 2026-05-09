@@ -31,15 +31,15 @@ class Abbreviation extends Node {
      * @return string The HTML representation of the abbreviation.
      */
     public function getHtml(): string {
-    	$_indent  = str_repeat(self::$indentString, $this->level);
+    	$_indent  = str_repeat(Element::getIndentString(), $this->level);
 
-    	$_html  = self::$newlineString
+    	$_html  = Element::getNewlineString()
     		. $_indent . '<abbr'
             . $this->getClasses()
             . $this->getAttributes()
             . $this->getEvents()
-            . '>' . self::$newlineString
-            . $_indent . self::$indentString . $this->text . self::$newlineString
+            . '>' . Element::getNewlineString()
+            . $_indent . Element::getIndentString() . $this->text . Element::getNewlineString()
             . $_indent . '</abbr>';
 
 		return $_html;

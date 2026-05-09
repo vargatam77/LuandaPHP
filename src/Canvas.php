@@ -40,9 +40,9 @@ class Canvas extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<canvas'
 			. ($this->hasValue($this->width)	? ' width="' . $this->width . '"'		: '')
 			. ($this->hasValue($this->height)	? ' height="' . $this->height . '"'		: '')
@@ -51,7 +51,7 @@ class Canvas extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. self::$newlineString
+			. Element::getNewlineString()
 			. $_indent . '</canvas>';
 			
 		return $_html;

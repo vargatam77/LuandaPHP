@@ -51,9 +51,9 @@ class ObjectEmbed extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<object'
 			. ($this->hasValue($this->data)			? ' data="' . $this->data . '"'			: '')
 			. ($this->hasValue($this->mediaType)	? ' type="' . $this->mediaType . '"'	: '')
@@ -64,7 +64,7 @@ class ObjectEmbed extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. self::$newlineString
+			. Element::getNewlineString()
 			. $_indent . '</object>';
 			
 		return $_html;
@@ -97,9 +97,9 @@ class Param extends Node {
 	 * @return string The HTML representation of the <param> element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<param'
 			. ($this->hasValue($this->name)		? ' name="' . $this->name . '"'		: '')
 			. ($this->hasValue($this->value)	? ' value="' . $this->value . '"'	: '')

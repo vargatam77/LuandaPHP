@@ -90,12 +90,12 @@ class Image extends Node {
 	 * @return string The HTML representation of the image element
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
 		if (!$this->hasValue($this->url) || (!file_exists($this->url) && !str_contains($this->url, 'base64')))
 			$this->loadBase64();
 			
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<img'
 			. ($this->hasValue($this->url)		? ' src="' . $this->url . '"'			: '')
 			. ($this->hasValue($this->alt)		? ' alt="' . $this->alt . '"'			: ' alt=""')

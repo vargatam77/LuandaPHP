@@ -113,9 +113,9 @@ class Textarea extends Node {
 	 * @return string The HTML representation of the <textarea> element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<textarea'
 			. ($this->hasValue($this->parent)		? ' form="' . $this->parent . '"'				: '')
 			. ($this->hasValue($this->readOnly)		? ' readonly="readonly"'						: '')

@@ -117,9 +117,9 @@ class Anchor extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<a'
 			. ($this->hasValue($this->url)              ? ' href="' . $this->url . '"'													: '')
 			. ($this->hasValue($this->target)           ? ' target="' . $this->target . '"'												: '')
@@ -134,7 +134,7 @@ class Anchor extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. self::$newlineString
+			. Element::getNewlineString()
 			. $_indent . '</a>';
 			
 		return $_html;

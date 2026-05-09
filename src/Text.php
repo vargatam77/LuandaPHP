@@ -163,9 +163,9 @@ class Bdi extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<bdi'
 			. ($this->hasValue($this->dir)	? ' dir="' . $this->dir . '"' : '')
 			. $this->getClasses()
@@ -213,9 +213,9 @@ class Bdo extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<bdo'
 			. ' dir="' . $this->dir . '"'
 			. $this->getClasses()
@@ -249,9 +249,9 @@ class Pre extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 		. $_indent . '<pre'
 			. $this->getClasses()
 			. $this->getAttributes()

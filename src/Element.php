@@ -18,8 +18,8 @@ namespace TamasVarga\LuandaPHP;
  * @see special_chars
  */
 abstract class Element {
-	protected static string $indentString = indent_type::TAB;
-	protected static string $newlineString = special_chars::NEWLINE;
+	private static string $indentString = indent_type::TAB;
+	private static string $newlineString = special_chars::NEWLINE;
 
 	/**
 	 * Sets output to human-readable format with indentation and newlines.
@@ -27,8 +27,8 @@ abstract class Element {
 	 * Uses TAB indentation and NEWLINE line breaks globally across all components.
 	 */
 	public static function Beautify(): void {
-		self::$indentString = indent_type::TAB;
-		self::$newlineString = special_chars::NEWLINE;
+		Element::getIndentString() = indent_type::TAB;
+		Element::getNewlineString() = special_chars::NEWLINE;
 	}
 
 	/**
@@ -37,8 +37,8 @@ abstract class Element {
 	 * Strips all indentation and line breaks globally across all components.
 	 */
 	public static function Minify(): void {
-		self::$indentString = indent_type::NONE;
-		self::$newlineString = indent_type::NONE;
+		Element::getIndentString() = indent_type::NONE;
+		Element::getNewlineString() = indent_type::NONE;
 	}
 
 	/**
@@ -47,7 +47,25 @@ abstract class Element {
 	 * @param string $indenttype An indent_type:: constant
 	 */
 	public static function setIndentType($indenttype): void {
-		self::$indentString = $indenttype;
+		Element::getIndentString() = $indenttype;
+	}
+	
+	/**
+	 * gets indentation style globally across all components.
+	 *
+	 * @return string The globally set indentation string \t by default
+	 */
+	protected static function getIndentString(): string {
+		return Element::getIndentString();
+	}
+	
+	/**
+	 * Gets newline style globally across all components.
+	 *
+	 * @return string The globally set newline string \n by default
+	 */
+	protected static function getNewlineString(): string {
+		return Element::getNewlineString();
 	}
 
 	/**

@@ -118,9 +118,9 @@ class Form extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<form'
 			. ($this->hasValue($this->url)				? ' action="' . $this->url . '"'									: '')
 			. ($this->hasValue($this->method)			? ' method="' . $this->method . '"'									: '')
@@ -135,7 +135,7 @@ class Form extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. self::$newlineString
+			. Element::getNewlineString()
 			. $_indent . '</form>';
 			
 		return $_html;

@@ -37,9 +37,9 @@ class BlockQuote extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(self::$indentString, $this->level);
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
-		$_html = self::$newlineString
+		$_html = Element::getNewlineString()
 			. $_indent . '<blockquote'
 			. ($this->hasValue($this->citeUrl) ? ' cite="' . $this->citeUrl . '"' : '')
 			. $this->getClasses()
@@ -47,7 +47,7 @@ class BlockQuote extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. self::$newlineString
+			. Element::getNewlineString()
 			. $_indent . '</blockquote>';
 			
 		return $_html;
