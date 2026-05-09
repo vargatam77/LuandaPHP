@@ -27,8 +27,8 @@ abstract class Element {
 	 * Uses TAB indentation and NEWLINE line breaks globally across all components.
 	 */
 	public static function Beautify(): void {
-		Element::getIndentString() = indent_type::TAB;
-		Element::getNewlineString() = special_chars::NEWLINE;
+		self::$indentString = indent_type::TAB;
+		self::$newlineString = special_chars::NEWLINE;
 	}
 
 	/**
@@ -37,8 +37,8 @@ abstract class Element {
 	 * Strips all indentation and line breaks globally across all components.
 	 */
 	public static function Minify(): void {
-		Element::getIndentString() = indent_type::NONE;
-		Element::getNewlineString() = indent_type::NONE;
+		self::$indentString = indent_type::NONE;
+		self::$newlineString = indent_type::NONE;
 	}
 
 	/**
@@ -47,7 +47,7 @@ abstract class Element {
 	 * @param string $indenttype An indent_type:: constant
 	 */
 	public static function setIndentType($indenttype): void {
-		Element::getIndentString() = $indenttype;
+		self::$indentString = $indenttype;
 	}
 	
 	/**
@@ -56,7 +56,7 @@ abstract class Element {
 	 * @return string The globally set indentation string \t by default
 	 */
 	protected static function getIndentString(): string {
-		return Element::getIndentString();
+		return self::$indentString;
 	}
 	
 	/**
@@ -65,7 +65,7 @@ abstract class Element {
 	 * @return string The globally set newline string \n by default
 	 */
 	protected static function getNewlineString(): string {
-		return Element::getNewlineString();
+		return self::$newlineString;
 	}
 
 	/**
