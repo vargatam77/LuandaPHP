@@ -28,7 +28,7 @@ class Text extends Node {
 	 * @return void
 	 */
 	public function setText(string $text): void {
-		$this->text = $this->safeHtml($text);
+		$this->text = $text;
 	}
 	
 	/**
@@ -38,6 +38,26 @@ class Text extends Node {
 	 * @return void
 	 */
 	public function addText(string $text): void {
+		$this->text .= $text;
+	}
+	
+	/**
+	 * Sets the text content.
+	 *
+	 * @param string $text The text content to set.
+	 * @return void
+	 */
+	public function setSafeText(string $text): void {
+		$this->text = $this->safeHtml($text);
+	}
+	
+	/**
+	 * Appends text to the existing content.
+	 *
+	 * @param string $text The text content to append.
+	 * @return void
+	 */
+	public function addSafeText(string $text): void {
 		$this->text .= $this->safeHtml($text);
 	}
 	
