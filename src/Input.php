@@ -28,6 +28,8 @@ class Input extends Node {
 	protected bool $checked					= false;	// Indicates if the input is checked
 	protected array $fileformats			= [];		// Accepted file formats for file input
 	protected ?string $device				= null;		// Device type for capture input
+	protected ?string $popovertarget		= null;		// Element that will be targeted by events
+	protected ?string $poptargetaction		= null;		// Action to be executed on trigger
 	protected array $autocompletes			= [];		// Autocomplete tokens for input
 	protected ?Output $output				= null;		// Output element associated with input
 	protected ?Datalist $datalist			= null;		// Datalist element associated with input
@@ -226,6 +228,26 @@ class Input extends Node {
 	}
 	
 	/**
+	 * Set the target for popover action.
+	 *
+	 * @param string $targetid Id of the targeted element
+	 * @return void
+	 */
+	public function setPopoverTarget(string $targetid): void {
+		$this->popovertarget = $targetid;
+	}
+	
+	/**
+	 * Set the action for popover event.
+	 *
+	 * @param string $popoveraction Use popover_action:: constants
+	 * @return void
+	 */
+	public function setPopoverTargetAction(string $popoveraction): void {
+		$this->poptargetaction = $popoveraction;
+	}
+	
+	/**
 	 * Show the output element associated with input.
 	 *
 	 * @return void
@@ -290,6 +312,8 @@ class Input extends Node {
 			. ($this->hasValue($this->pattern)			? ' pattern="' . $this->pattern . '"'							: '')
 			. ($this->hasValue($this->placeholder)		? ' placeholder="' . $this->placeholder . '"'					: '')
 			. ($this->output							? ' oninput="' . $this->getId() . '_output.value=value"'		: '')
+			. ($this->hasValue($this->popovertarget)	? ' popovertarget="' . $this->popovertarget . '"'				: '')
+			. ($this->hasValue($this->poptargetaction)	? ' popovertargetaction="' . $this->poptargetaction . '"'		: '')
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()

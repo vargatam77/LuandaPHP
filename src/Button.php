@@ -7,9 +7,11 @@ namespace TamasVarga\LuandaPHP;
  * Represents a button HTML element.
  */
 class Button extends Node {
-	protected ?string $type			= null;
-	protected ?string $parent		= null;
-	protected ?string $value		= null;
+	protected ?string $type				= null;
+	protected ?string $parent			= null;
+	protected ?string $value			= null;
+	protected ?string $popovertarget	= null;
+	protected ?string $poptargetaction	= null;
 	
 	/**
 	 * Constructor for the button element.
@@ -41,6 +43,26 @@ class Button extends Node {
 	}
 	
 	/**
+	 * Set the target for popover action.
+	 *
+	 * @param string $targetid Id of the targeted element
+	 * @return void
+	 */
+	public function setPopoverTarget(string $targetid): void {
+		$this->popovertarget = $targetid;
+	}
+	
+	/**
+	 * Set the action for popover event.
+	 *
+	 * @param string $popoveraction Use popover_action:: constants
+	 * @return void
+	 */
+	public function setPopoverTargetAction(string $popoveraction): void {
+		$this->poptargetaction = $popoveraction;
+	}
+	
+	/**
 	 * Generate the HTML representation of the button element.
 	 *
 	 * @return string The HTML representation of the button element.
@@ -52,9 +74,11 @@ class Button extends Node {
 		
 		$_html = Element::getNewlineString()
 			. $_indent . '<button'
-			. ($this->hasValue($this->type)		? ' type="' . $this->type . '"'		: '')
-			. ($this->hasValue($this->value)	? ' value="' . $this->value . '"'	: '')
-			. ($this->hasValue($this->parent)	? ' form="' . $this->parent . '"'	: '')
+			. ($this->hasValue($this->type)				? ' type="' . $this->type . '"'								: '')
+			. ($this->hasValue($this->value)			? ' value="' . $this->value . '"'							: '')
+			. ($this->hasValue($this->parent)			? ' form="' . $this->parent . '"'							: '')
+			. ($this->hasValue($this->popovertarget)	? ' popovertarget="' . $this->popovertarget . '"'			: '')
+			. ($this->hasValue($this->poptargetaction)	? ' popovertargetaction="' . $this->poptargetaction . '"'	: '')
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()

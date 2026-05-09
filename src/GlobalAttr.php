@@ -235,7 +235,7 @@ abstract class GlobalAttr extends GlobalEvent {
     /**
      * Sets the popover attribute.
      *
-     * @param string $state The popover state to set ('auto' or 'manual'). Defaults to 'auto'.
+     * @param string $state The popover state to set, use popover_state:: constants
      * @return void
      */
     public function setPopover(string $state): void {
@@ -299,9 +299,21 @@ class translate {
 /**
  * Class to define constants for popover states.
  */
-class popover {
+class popover_state {
     public const AUTO			= "auto";
+    public const HINT			= "hint";
     public const MANUAL			= "manual";
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Class to define constants for popover actions.
+ */
+class popover_action {
+	public const HIDE			= "hide";
+	public const SHOW			= "show";
+	public const TOGGLE			= "toggle";
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
