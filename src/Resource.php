@@ -40,9 +40,9 @@ class Resource extends Node {
 	 * @return string The HTML representation of the link tag
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<link'
 			. ($this->hasValue($this->rel)		? ' rel="' . $this->rel . '"'					: '')
 			. ($this->hasValue($this->href)		? ' href="' . $this->href . '"'					: '')

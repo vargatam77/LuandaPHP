@@ -33,9 +33,9 @@ class Details extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<details'
 			. ($this->open ? ' open="open"' : '')
 			. $this->getClasses()
@@ -43,7 +43,7 @@ class Details extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</details>';
 			
 		return $_html;

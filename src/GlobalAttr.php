@@ -512,6 +512,7 @@ class listitem_type {
  * Class to define constants for indentation type values.
  */
 class indent_type {
+	public const NONE			= "";
     public const TAB			= "\u{0009}";
     public const SPACE			= "\u{0020}";
     public const DBLSPACE		= self::SPACE . self::SPACE;

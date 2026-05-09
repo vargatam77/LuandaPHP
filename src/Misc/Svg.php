@@ -22,10 +22,28 @@ class Svg {
 	 * @param int|float $height The height of the canvas
 	 */
 	public function __construct(int|float $top = 0, int|float $left = 0, int|float $width = 100, int|float $height = 100) {
-		$this->top = $top;
-		$this->left = $left;
-		$this->width = $width;
-		$this->height = $height;
+		$this->top		= $top;
+		$this->left		= $left;
+		$this->width	= $width;
+		$this->height	= $height;
+	}
+	
+	/**
+	 * Returns the width of the SVG.
+	 *
+	 * @return int|float
+	 */
+	public function getWidth(): int|float {
+		return $this->width;
+	}
+	
+	/**
+	 * Returns the height of the SVG.
+	 *
+	 * @return int|float
+	 */
+	public function getHeight(): int|float {
+		return $this->height;
 	}
 	
 	/**
@@ -49,24 +67,6 @@ class Svg {
 		. '" stroke-width="' . (string)$strokewidth
 		. '" fill="' . $fillcolor
 		. '"/>';
-	}
-	
-	/**
-	 * Returns the width of the SVG.
-	 *
-	 * @return int|float
-	 */
-	public function getWidth(): int|float {
-		return $this->width;
-	}
-	
-	/**
-	 * Returns the height of the SVG.
-	 *
-	 * @return int|float
-	 */
-	public function getHeight(): int|float {
-		return $this->height;
 	}
 	
 	/**

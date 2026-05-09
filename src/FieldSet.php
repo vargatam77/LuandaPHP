@@ -36,9 +36,9 @@ class FieldSet extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<fieldset'
 			. ($this->hasValue($this->parent) ? ' form="' . $this->parent . '"' : '')
 			. $this->getClasses()
@@ -46,7 +46,7 @@ class FieldSet extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</fieldset>';
 			
 		return $_html;

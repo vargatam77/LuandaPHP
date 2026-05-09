@@ -54,9 +54,9 @@ class Comment extends Element {
 	public function getHtml(): string {
 		$_dashes = str_repeat($this->dashChar, intdiv($this->dashCount, 2));
 		
-		$_html = special_chars::NEWLINE . special_chars::NEWLINE
+		$_html = self::$newlineString . self::$newlineString
 			. '<!-- ' . $_dashes . ' ' . $this->comment . ' ' . $_dashes . ' -->'
-			. special_chars::NEWLINE;
+			. self::$newlineString;
 			
 		return $_html;
 	}

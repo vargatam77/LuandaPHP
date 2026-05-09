@@ -102,9 +102,9 @@ class Select extends Node {
 	 * @return string The HTML representation of the <select> element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<select'
 			. ($this->hasValue($this->parent)	? ' form="' . $this->parent . '"'	: '')
 			. ($this->hasValue($this->required)	? ' required="required"'			: '')
@@ -120,7 +120,7 @@ class Select extends Node {
 			$_html .= $_option->getHtml();
 		}
 		
-		$_html .= special_chars::NEWLINE
+		$_html .= self::$newlineString
 			. $_indent . '</select>';
 		
 		return $_html;
@@ -181,9 +181,9 @@ class Option extends Node {
 	 * @return string The HTML representation of the <option> element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<option value="' . $this->value . '"'
 			. ($this->hasValue($this->selected)	? ' selected="selected"' : '')
 			. $this->getClasses()

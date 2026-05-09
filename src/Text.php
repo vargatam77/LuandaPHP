@@ -104,7 +104,7 @@ class Text extends Node {
 		. ($this->format & text_format::DFN			? '<dfn>'		: '')
 		. ($this->format & text_format::Q			? '<q>'			: '')
 		. ($this->format & text_format::CODE		? '<code>'		: '')
-		. $this->text
+		. '<!---->' . $this->text . '<!---->'
 		. ($this->format & text_format::CODE		? '</code>'		: '')
 		. ($this->format & text_format::Q			? '</q>'		: '')
 		. ($this->format & text_format::DFN			? '</dfn>'		: '')
@@ -163,9 +163,9 @@ class Bdi extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<bdi'
 			. ($this->hasValue($this->dir)	? ' dir="' . $this->dir . '"' : '')
 			. $this->getClasses()
@@ -213,9 +213,9 @@ class Bdo extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<bdo'
 			. ' dir="' . $this->dir . '"'
 			. $this->getClasses()
@@ -249,9 +249,9 @@ class Pre extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 		. $_indent . '<pre'
 			. $this->getClasses()
 			. $this->getAttributes()

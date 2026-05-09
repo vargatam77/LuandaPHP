@@ -58,9 +58,9 @@ class Output extends Node {
 	 * @return string The HTML representation of the output element
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<output'
 			. ($this->hasValue($this->parent)	? ' form="' . $this->parent . '"'	: '')
 			. ($this->hasValue($this->input)	? ' for="' . $this->input . '"'		: '')

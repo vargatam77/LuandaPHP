@@ -67,9 +67,9 @@ class Option extends Node {
      * @return string The HTML representation of the option element.
      */
     public function getHtml(): string {
-        $_indent = str_repeat(indent_type::TAB, $this->level);
+        $_indent = str_repeat(self::$indentString, $this->level);
 
-        $_html = special_chars::NEWLINE
+        $_html = self::$newlineString
             . $_indent . '<option'
             . ($this->hasValue($this->value)		? ' value="' . $this->value . '"'	: '')
             . ($this->hasValue($this->label)		? ' label="' . $this->label . '"'	: '')

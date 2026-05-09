@@ -77,7 +77,7 @@ class Image extends Node {
 	 * @param Svg|string $svg An Svg object or string containing svg code
 	 * @return void
 	 */
-	public function loadSvgBase64(Svg|string $svg): void {
+	public function loadBase64FromSvg(Svg|string $svg): void {
 		$_encoder = new EncodedImg();
 		$this->url = $_encoder->createFromSvg($svg);
 	}
@@ -90,12 +90,12 @@ class Image extends Node {
 	 * @return string The HTML representation of the image element
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
 		if (!$this->hasValue($this->url) || (!file_exists($this->url) && !str_contains($this->url, 'base64')))
 			$this->loadBase64();
 			
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<img'
 			. ($this->hasValue($this->url)		? ' src="' . $this->url . '"'			: '')
 			. ($this->hasValue($this->alt)		? ' alt="' . $this->alt . '"'			: ' alt=""')

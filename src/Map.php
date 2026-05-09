@@ -25,16 +25,16 @@ class Map extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<map'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</map>';
 			
 		return $_html;
@@ -114,9 +114,9 @@ class Area extends Node {
 	 * @return string The HTML representation of the <area> element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<area'
 			. ($this->hasValue($this->shape)	? ' shape="' . $this->shape	. '"'												: '')
 			. ($this->hasValue($this->coords)	? ' coords="' . $this->coords . '"'												: '')

@@ -64,9 +64,9 @@ class Meter extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<meter'
 			. ' value="' . $this->value . '"'
 			. ($this->hasValue($this->min)		? ' min="'		. $this->min		. '"' : '')
@@ -79,7 +79,7 @@ class Meter extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</meter>';
 
 		return $_html;

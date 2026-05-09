@@ -38,9 +38,9 @@ class Script extends Node {
 	 * @return string The HTML representation of the inline script.
 	 */
 	public function runScript(): string {
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<script type="text/javascript">'
 			. $this->src
 			. '</script>';
@@ -54,9 +54,9 @@ class Script extends Node {
 	 * @return string The HTML representation of the <script> element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<script'
 			. ($this->hasValue($this->crossorigin) ? '' : ' type="text/javascript"')
 			. ' src="' . $this->src . '"'

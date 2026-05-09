@@ -263,9 +263,9 @@ class Input extends Node {
 			$this->datalist->setId($this->getId() . '_list');
 		}
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<input'
 			. ($this->hasValue($this->type)				? ' type="' . $this->type . '"'									: '')
 			. ($this->hasValue($this->alt)				? ' alt="' . $this->alt . '"'									: '')

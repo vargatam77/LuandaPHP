@@ -38,9 +38,9 @@ class Table extends Node {
 		$this->content?->setLevel($this->level);
 		$this->caption?->setLevel($this->level + 1);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<table'
 			. $this->getClasses()
 			. $this->getAttributes()
@@ -48,7 +48,7 @@ class Table extends Node {
 			. '>'
 			. $this->caption?->getHtml()
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</table>';
 			
 		return $_html;
@@ -80,9 +80,9 @@ class Caption extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<caption'
 			. $this->getClasses()
 			. $this->getAttributes()
@@ -118,16 +118,16 @@ class THead extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<thead'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</thead>';
 			
 		return $_html;
@@ -156,16 +156,16 @@ class TBody extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<tbody'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</tbody>';
 			
 		return $_html;
@@ -194,16 +194,16 @@ class TFoot extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<tfoot'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</tfoot>';
 			
 		return $_html;
@@ -232,16 +232,16 @@ class TRow extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<tr'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</tr>';
 			
 		return $_html;
@@ -303,9 +303,9 @@ class TCell extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<td'
 			. ($this->hasValue($this->colspan)	? ' colspan="' . $this->colspan . '"'	: '')
 			. ($this->hasValue($this->rowspan)	? ' rowspan="' . $this->rowspan . '"'	: '')
@@ -387,9 +387,9 @@ class THeader extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<th'
 			. ($this->hasValue($this->colspan)	? ' colspan="' . $this->colspan . '"'	: '')
 			. ($this->hasValue($this->rowspan)	? ' rowspan="' . $this->rowspan . '"'	: '')
@@ -431,9 +431,9 @@ class ColGroup extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<colgroup'
 			. ($this->hasValue($this->span)	? ' span="' . $this->span . '"' : '')
 			. $this->getClasses()
@@ -441,7 +441,7 @@ class ColGroup extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</colgroup>';
 			
 		return $_html;
@@ -471,9 +471,9 @@ class Col extends Node {
 	 * @return string The HTML representation of the <col> element.
 	 */
 	public function getHtml(): string {
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<col'
 			. ($this->hasValue($this->span)	? ' span="' . $this->span . '"' : '')
 			. $this->getClasses()

@@ -48,9 +48,9 @@ class Button extends Node {
 	public function getHtml(): string {
 		$this->content?->setLevel($this->level);
 		
-		$_indent = str_repeat(indent_type::TAB, $this->level);
+		$_indent = str_repeat(self::$indentString, $this->level);
 		
-		$_html = special_chars::NEWLINE
+		$_html = self::$newlineString
 			. $_indent . '<button'
 			. ($this->hasValue($this->type)		? ' type="' . $this->type . '"'		: '')
 			. ($this->hasValue($this->value)	? ' value="' . $this->value . '"'	: '')
@@ -60,7 +60,7 @@ class Button extends Node {
 			. $this->getEvents()
 			. '>'
 			. $this->content?->getHtml()
-			. special_chars::NEWLINE
+			. self::$newlineString
 			. $_indent . '</button>';
 			
 		return $_html;
