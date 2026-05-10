@@ -123,9 +123,7 @@ class Text extends Node {
 		. ($this->format & text_format::VAR			? '<var>'		: '')
 		. ($this->format & text_format::DFN			? '<dfn>'		: '')
 		. ($this->format & text_format::Q			? '<q>'			: '')
-		. ($this->format & text_format::CODE		? '<code>'		: '')
 		. '<!---->' . $this->text . '<!---->'
-		. ($this->format & text_format::CODE		? '</code>'		: '')
 		. ($this->format & text_format::Q			? '</q>'		: '')
 		. ($this->format & text_format::DFN			? '</dfn>'		: '')
 		. ($this->format & text_format::VAR			? '</var>'		: '')
@@ -277,10 +275,45 @@ class Pre extends Node {
 			. $this->getAttributes()
 			. $this->getEvents()
 			. '>'
-				. $this->content?->getHtml()
-				. '</pre>';
-				
-				return $_html;
+			. $this->content?->getHtml()
+			. '</pre>';
+			
+		return $_html;
+	}
+}
+
+/**
+ * Represents a <code> HTML element for preformatted code.
+ */
+class Code extends Node {
+	
+	/**
+	 * Constructor for the Pre element.
+	 */
+	public function __construct() {
+		
+	}
+	
+	/**
+	 * Generate the HTML representation of the <pre> element.
+	 *
+	 * @return string The HTML representation of the <pre> element.
+	 */
+	public function getHtml(): string {
+		$this->content?->setLevel($this->level);
+		
+		$_indent = str_repeat(Element::getIndentString(), $this->level);
+		
+		$_html = Element::getNewlineString()
+		. $_indent . '<code'
+			. $this->getClasses()
+			. $this->getAttributes()
+			. $this->getEvents()
+			. '>'
+			. $this->content?->getHtml()
+			. '</code>';
+			
+		return $_html;
 	}
 }
 

@@ -350,7 +350,6 @@ class text_format {
 	public const VAR		= 1 << 14;	// <var> variable
 	public const DFN		= 1 << 15;	// <dfn> definition term
 	public const Q			= 1 << 16;	// <q> inline quotation
-	public const CODE		= 1 << 17;	// <code> inline code
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
