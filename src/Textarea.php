@@ -66,13 +66,13 @@ class Textarea extends Node {
 	/**
 	 * Sets the size of the textarea.
 	 *
-	 * @param int $cols The number of columns.
 	 * @param int $rows The number of rows.
+	 * @param int|null $cols The number of columns.
 	 * @return void
 	 */
-	public function setSize(int $cols, int $rows): void {
-		$this->cols = $cols;
+	public function setSize(int $rows, ?int $cols = null): void {
 		$this->rows = $rows;
+		$this->cols = $cols;
 	}
 	
 	/**
