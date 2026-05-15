@@ -162,6 +162,16 @@ class Html extends Element {
 	}
 	
 	/**
+	 * Sets favicon to the page
+	 *
+	 * @param Resource $link The link object.
+	 * @return void
+	 */
+	public function setFavIcon(string $url, string $type = image_mime_types::ICO): void {
+		$this->head->addLink(new Resource('icon', $url, $type));
+	}
+	
+	/**
 	 * Adds a meta tag to the head section.
 	 *
 	 * @param Meta $meta The meta tag object.

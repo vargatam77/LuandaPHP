@@ -534,4 +534,40 @@ abstract class deep_cloner {
     }
 }
 
+class image_mime_types {
+	// Standard Vector Format
+	public const SVG = 'image/svg+xml';
+	
+	// Modern Web Formats
+	public const WEBP = 'image/webp';
+	public const AVIF = 'image/avif';
+	public const HEIC = 'image/heic';
+	public const HEIF = 'image/heif';
+	
+	// Ubiquitous Web Formats
+	public const JPEG = 'image/jpeg';
+	public const PNG  = 'image/png';
+	public const GIF  = 'image/gif';
+	
+	// Professional & Editing Formats
+	public const TIFF = 'image/tiff';
+	public const PSD  = 'image/vnd.adobe.photoshop';
+	public const AI   = 'application/postscript'; // Often delivered as EPS/PostScript
+	public const EPS  = 'image/x-eps';
+	
+	// Common Legacy / OS-Specific Formats
+	public const BMP  = 'image/bmp';
+	public const ICO  = 'image/x-icon';
+	public const TGA  = 'image/x-targa';
+	
+	// Major Camera RAW Formats
+	public const DNG  = 'image/x-adobe-dng';       // Adobe Digital Negative
+	public const CR2  = 'image/x-canon-cr2';       // Canon CR2
+	public const CR3  = 'image/x-canon-cr3';       // Canon CR3
+	public const NEF  = 'image/x-nikon-nef';       // Nikon
+	public const ARW  = 'image/x-sony-arw';        // Sony
+	public const ORF  = 'image/x-olympus-orf';     // Olympus
+	public const RW2  = 'image/x-panasonic-rw2';   // Panasonic
+}
+
 ?>
