@@ -47,38 +47,54 @@ class Html extends Element {
 	 * Free tier only — no API key required.
 	 * For Pro icons, set up your own stylesheet via addStylesheet().
 	 *
+	 * @param bool $production For deployment set to true
+	 * 
 	 * @return void
 	 */
-	public function setupFontAwesome(): void {
-		$this->addStylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+	public function setupFontAwesome(bool $production = false): void {
+		if(!$production) {
+			$this->addStylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+		} else {
+			$this->addStylesheet('/public/fontawesome/css/all.min.css');
+		}
 	}
 	
 	/**
 	 * Sets up Tailwind CSS via CDN.
 	 *
+	 * @param bool $production For deployment set to true
+	 *
 	 * @return void
 	 */
-	public function setupTailwind(): void {
-		$this->addScript(script_type::HEADLINK, 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4');
+	public function setupTailwind(bool $production = false): void {
+		if(!$production) {
+			$this->addScript(script_type::HEADLINK, 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4');
+		}
 	}
 	
 	/**
 	 * Sets up Bootstrap via CDN.
 	 *
+	 * @param bool $production For deployment set to true
+	 *
 	 * @return void
 	 */
-	public function setupBootstrap(): void {
-		$this->addScript(script_type::HEADLINK, 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js');
-		$this->addStylesheet('https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css');
+	public function setupBootstrap(bool $production = false): void {
+		if(!$production) {
+			$this->addScript(script_type::HEADLINK, 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js');
+			$this->addStylesheet('https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css');
+		}
 	}
 	
 	/**
 	 * Sets up meta tags for mobile devices.
+	 * 
+	 * @param bool $strict To set user-scalable=no set to true
 	 *
 	 * @return void
 	 */
-	public function setupMobile(): void {
-		$this->addMeta(new Meta('viewport', 'height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'));
+	public function setupMobile(bool $strict = false): void {
+		$this->addMeta(new Meta('viewport', 'height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0' . ($strict ? ', user-scalable=no' : '')));
 	}
 	
 	/**

@@ -612,3 +612,5 @@ class db_collation {
 	public const UTF8_UNICODE        = 'utf8_unicode_ci';
 	public const UTF8_BIN            = 'utf8_bin';
 }
+
+?>
