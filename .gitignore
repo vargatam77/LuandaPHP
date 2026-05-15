@@ -11,6 +11,10 @@
 *.tmp
 *.bak
 
+# Composer files
+*.lock
+*.phar
+
 # Invalid files
 *-old.*
 *-new.*
@@ -27,3 +31,4 @@
 *.log
 
 /vendor/
+/public/fontawesome/
