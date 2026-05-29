@@ -17,7 +17,7 @@ class Text extends Node {
 	 * @param int    $format Optional bitmask of text_format flags.
 	 */
 	public function __construct(?string $text = null, int $format = 0) {
-		if ($this->hasValue($text)) $this->setText($text);
+		$this->setText($text);
 		$this->format = $format;
 	}
 	
@@ -77,6 +77,16 @@ class Text extends Node {
 	 * @return void
 	 */
 	public function getFromUrl(string $url): void {
+		$this->text = file_get_contents($url);
+	}
+		
+	/**
+	* Fetches content from a URL and sets it as the text content.
+	*
+	* @param string $url The URL to fetch content from.
+	* @return void
+	*/
+	public function getFromUrlSafely(string $url): void {
 		$this->text = $this->safeHtml(file_get_contents($url));
 	}
 	
@@ -107,46 +117,48 @@ class Text extends Node {
 	 */
 	public function getHtml(): string {
 		$_html = ($this->format & text_format::STRONG	? '<strong>'	: '')
-		. ($this->format & text_format::EM			? '<em>'		: '')
-		. ($this->format & text_format::MARK		? '<mark>'		: '')
-		. ($this->format & text_format::B			? '<b>'			: '')
-		. ($this->format & text_format::I			? '<i>'			: '')
-		. ($this->format & text_format::U			? '<u>'			: '')
-		. ($this->format & text_format::S			? '<s>'			: '')
-		. ($this->format & text_format::DEL			? '<del>'		: '')
-		. ($this->format & text_format::INS			? '<ins>'		: '')
-		. ($this->format & text_format::SMALL		? '<small>'		: '')
-		. ($this->format & text_format::SUB			? '<sub>'		: '')
-		. ($this->format & text_format::SUP			? '<sup>'		: '')
-		. ($this->format & text_format::KBD			? '<kbd>'		: '')
-		. ($this->format & text_format::SAMP		? '<samp>'		: '')
-		. ($this->format & text_format::VAR			? '<var>'		: '')
-		. ($this->format & text_format::DFN			? '<dfn>'		: '')
-		. ($this->format & text_format::Q			? '<q>'			: '')
-		. '<!---->' . $this->text . '<!---->'
-		. ($this->format & text_format::Q			? '</q>'		: '')
-		. ($this->format & text_format::DFN			? '</dfn>'		: '')
-		. ($this->format & text_format::VAR			? '</var>'		: '')
-		. ($this->format & text_format::SAMP		? '</samp>'		: '')
-		. ($this->format & text_format::KBD			? '</kbd>'		: '')
-		. ($this->format & text_format::SUP			? '</sup>'		: '')
-		. ($this->format & text_format::SUB			? '</sub>'		: '')
-		. ($this->format & text_format::SMALL		? '</small>'	: '')
-		. ($this->format & text_format::INS			? '</ins>'		: '')
-		. ($this->format & text_format::DEL			? '</del>'		: '')
-		. ($this->format & text_format::S			? '</s>'		: '')
-		. ($this->format & text_format::U			? '</u>'		: '')
-		. ($this->format & text_format::I			? '</i>'		: '')
-		. ($this->format & text_format::B			? '</b>'		: '')
-		. ($this->format & text_format::MARK		? '</mark>'		: '')
-		. ($this->format & text_format::EM			? '</em>'		: '')
-		. ($this->format & text_format::STRONG		? '</strong>'	: '');
+			. ($this->format & text_format::EM			? '<em>'		: '')
+			. ($this->format & text_format::MARK		? '<mark>'		: '')
+			. ($this->format & text_format::B			? '<b>'			: '')
+			. ($this->format & text_format::I			? '<i>'			: '')
+			. ($this->format & text_format::U			? '<u>'			: '')
+			. ($this->format & text_format::S			? '<s>'			: '')
+			. ($this->format & text_format::DEL			? '<del>'		: '')
+			. ($this->format & text_format::INS			? '<ins>'		: '')
+			. ($this->format & text_format::SMALL		? '<small>'		: '')
+			. ($this->format & text_format::SUB			? '<sub>'		: '')
+			. ($this->format & text_format::SUP			? '<sup>'		: '')
+			. ($this->format & text_format::KBD			? '<kbd>'		: '')
+			. ($this->format & text_format::SAMP		? '<samp>'		: '')
+			. ($this->format & text_format::VAR			? '<var>'		: '')
+			. ($this->format & text_format::DFN			? '<dfn>'		: '')
+			. ($this->format & text_format::Q			? '<q>'			: '')
+			. '<!---->' . $this->text . '<!---->'
+			. ($this->format & text_format::Q			? '</q>'		: '')
+			. ($this->format & text_format::DFN			? '</dfn>'		: '')
+			. ($this->format & text_format::VAR			? '</var>'		: '')
+			. ($this->format & text_format::SAMP		? '</samp>'		: '')
+			. ($this->format & text_format::KBD			? '</kbd>'		: '')
+			. ($this->format & text_format::SUP			? '</sup>'		: '')
+			. ($this->format & text_format::SUB			? '</sub>'		: '')
+			. ($this->format & text_format::SMALL		? '</small>'	: '')
+			. ($this->format & text_format::INS			? '</ins>'		: '')
+			. ($this->format & text_format::DEL			? '</del>'		: '')
+			. ($this->format & text_format::S			? '</s>'		: '')
+			. ($this->format & text_format::U			? '</u>'		: '')
+			. ($this->format & text_format::I			? '</i>'		: '')
+			. ($this->format & text_format::B			? '</b>'		: '')
+			. ($this->format & text_format::MARK		? '</mark>'		: '')
+			. ($this->format & text_format::EM			? '</em>'		: '')
+			. ($this->format & text_format::STRONG		? '</strong>'	: '');
 		
 		return $_html;
 	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
+
+namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents a <bdi> HTML element for bidirectional text isolation.
@@ -160,7 +172,7 @@ class Bdi extends Node {
 	 * @param string|null $dir Text direction, use text_direction constants.
 	 */
 	public function __construct(?string $dir = null) {
-		if ($this->hasValue($dir)) $this->setDir($dir);
+		$this->setDir($dir);
 	}
 	
 	/**
@@ -198,6 +210,8 @@ class Bdi extends Node {
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
+
+namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents a <bdo> HTML element for bidirectional text override.
@@ -247,6 +261,10 @@ class Bdo extends Node {
 	}
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------
+
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <pre> HTML element for preformatted text.
  */
@@ -270,7 +288,7 @@ class Pre extends Node {
 		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
 		$_html = Element::getNewlineString()
-		. $_indent . '<pre'
+			. $_indent . '<pre'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
@@ -281,6 +299,10 @@ class Pre extends Node {
 		return $_html;
 	}
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents a <code> HTML element for preformatted code.
@@ -305,7 +327,7 @@ class Code extends Node {
 		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
 		$_html = Element::getNewlineString()
-		. $_indent . '<code'
+			. $_indent . '<code'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()

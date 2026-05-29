@@ -26,7 +26,7 @@ class Noscript extends Node {
 		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
 		$_html = Element::getNewlineString()
-		. $_indent . '<noscript'
+			. $_indent . '<noscript'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()

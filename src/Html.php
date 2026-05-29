@@ -167,7 +167,7 @@ class Html extends Element {
 	 * @param Resource $link The link object.
 	 * @return void
 	 */
-	public function setFavIcon(string $url, string $type = image_mime_types::ICO): void {
+	public function setFavIcon(string $url, string $type = image_mime_type::ICO): void {
 		$this->head->addLink(new Resource('icon', $url, $type));
 	}
 	
@@ -236,6 +236,8 @@ class Html extends Element {
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
+
+namespace TamasVarga\LuandaPHP;
 
 /**
  * Internal Head structure for the Html class.
@@ -365,6 +367,8 @@ class Head extends Element {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Internal Body structure for the Html class.
  */
@@ -437,6 +441,8 @@ class Body extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Internal Title structure for the Head section.
  */
@@ -471,6 +477,8 @@ class Title extends Element {
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
+
+namespace TamasVarga\LuandaPHP;
 
 /**
  * Internal Base structure for the Head section.

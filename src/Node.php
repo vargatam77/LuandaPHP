@@ -56,6 +56,13 @@ abstract class Node extends GlobalAttr implements INodeInterface {
     }
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+
+namespace TamasVarga\LuandaPHP;
+
+/**
+ * Defines minimum implementation of node elements.
+ */
 interface INodeInterface {
 	public function setLevel(int $level): void;
 	public function getHtml(): string;

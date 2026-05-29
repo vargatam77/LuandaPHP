@@ -26,7 +26,7 @@ class Ruby extends Node {
 		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
 		$_html = Element::getNewlineString()
-		. $_indent . '<ruby'
+			. $_indent . '<ruby'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
@@ -40,6 +40,8 @@ class Ruby extends Node {
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
+
+namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents an <rt> HTML element (ruby text annotation).
@@ -64,7 +66,7 @@ class Rt extends Node {
 		$_indent = str_repeat(Element::getIndentString(), $this->level);
 		
 		$_html = Element::getNewlineString()
-		. $_indent . '<rt'
+			. $_indent . '<rt'
 			. $this->getClasses()
 			. $this->getAttributes()
 			. $this->getEvents()
@@ -78,6 +80,8 @@ class Rt extends Node {
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
+
+namespace TamasVarga\LuandaPHP;
 
 /**
  * Represents an <rp> HTML element (ruby fallback parenthesis).

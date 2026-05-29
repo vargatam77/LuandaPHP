@@ -73,6 +73,8 @@ class ObjectEmbed extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <param> HTML element used inside an <object>.
  */

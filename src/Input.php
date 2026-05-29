@@ -37,10 +37,10 @@ class Input extends Node {
 	/**
 	 * Constructor for the input element.
 	 *
-	 * @param string|null $type Type of the input
+	 * @param string $type Type of the input default text
 	 */
-	public function __construct(?string $type = null) {
-		if ($this->hasValue($type)) $this->type = $type;
+	public function __construct(string $type = input_type::TEXT) {
+		$this->type = $type;
 	}
 	
 	/**

@@ -52,18 +52,4 @@ class Heading extends Node {
 	}
 }
 
-//-------------------------------------------------------------------------------------------------
-
-/**
- * Constants for heading levels H1-H6.
- */
-class heading_level {
-	public const H1 = 1;
-	public const H2 = 2;
-	public const H3 = 3;
-	public const H4 = 4;
-	public const H5 = 5;
-	public const H6 = 6;
-}
-
 ?>

@@ -18,7 +18,7 @@ class Button extends Node {
 	 *
 	 * @param string $type The type of the button, use button_type:: constants.
 	 */
-	public function __construct(string $type = form_button_type::BTN) {
+	public function __construct(string $type = button_type::BTN) {
 		$this->type = $type;
 	}
 	

@@ -57,6 +57,8 @@ class Table extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <caption> HTML element.
  */
@@ -98,10 +100,12 @@ class Caption extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <thead> HTML element.
  */
-class THead extends Node {
+class TableHead extends Node {
 	
 	/**
 	 * Constructor for the THead element.
@@ -136,10 +140,12 @@ class THead extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <tbody> HTML element.
  */
-class TBody extends Node {
+class TableBody extends Node {
 	
 	/**
 	 * Constructor for the TBody element.
@@ -174,10 +180,12 @@ class TBody extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <tfoot> HTML element.
  */
-class TFoot extends Node {
+class TableFoot extends Node {
 	
 	/**
 	 * Constructor for the TFoot element.
@@ -212,10 +220,12 @@ class TFoot extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <tr> HTML element.
  */
-class TRow extends Node {
+class TableRow extends Node {
 	
 	/**
 	 * Constructor for the TRow element.
@@ -250,10 +260,12 @@ class TRow extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <td> HTML element (table data cell).
  */
-class TCell extends Node {
+class TableCell extends Node {
 	protected ?int $colspan		= null;	// Number of columns to span
 	protected ?int $rowspan		= null;	// Number of rows to span
 	protected ?string $headers	= null;	// Space-separated list of header IDs
@@ -323,10 +335,12 @@ class TCell extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <th> HTML element (table header cell).
  */
-class THeader extends Node {
+class TableHeader extends Node {
 	protected ?int $colspan		= null;	// Number of columns to span
 	protected ?int $rowspan		= null;	// Number of rows to span
 	protected ?string $scope	= null;	// Scope of the header
@@ -408,10 +422,12 @@ class THeader extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <colgroup> HTML element.
  */
-class ColGroup extends Node {
+class ColumnGroup extends Node {
 	protected ?int $span = null;	// Number of columns this group covers
 	
 	/**
@@ -450,10 +466,12 @@ class ColGroup extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents a <col> HTML element.
  */
-class Col extends Node {
+class Column extends Node {
 	protected ?int $span = null;	// Number of columns this element covers
 	
 	/**
@@ -483,19 +501,6 @@ class Col extends Node {
 			
 		return $_html;
 	}
-}
-
-//--------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * Class to define constants for table header scope values.
- */
-class th_scope {
-	public const ROW		= 'row';
-	public const COL		= 'col';
-	public const ROWGROUP	= 'rowgroup';
-	public const COLGROUP	= 'colgroup';
-	public const AUTO		= 'auto';
 }
 
 ?>

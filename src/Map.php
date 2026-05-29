@@ -43,6 +43,8 @@ class Map extends Node {
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
+namespace TamasVarga\LuandaPHP;
+
 /**
  * Represents an <area> HTML element inside a map.
  */
@@ -61,7 +63,7 @@ class Area extends Node {
 	 * @param string $shape  Use area_shape constants.
 	 * @param string|null $coords Comma-separated coordinate string.
 	 */
-	public function __construct(string $shape = area_shape::DEFAULT, ?string $coords = null) {
+	public function __construct(string $shape = map_area_shape::DEFAULT, ?string $coords = null) {
 		$this->shape = $shape;
 		if ($this->hasValue($coords)) $this->coords = $coords;
 	}
@@ -132,18 +134,6 @@ class Area extends Node {
 			
 		return $_html;
 	}
-}
-
-//--------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * Class to define constants for area shape values.
- */
-class area_shape {
-	public const RECT		= 'rect';
-	public const CIRCLE		= 'circle';
-	public const POLY		= 'poly';
-	public const DEFAULT	= 'default';
 }
 
 ?>
